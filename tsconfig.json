@@ -12,7 +12,7 @@
       "dom"
     ],
     "jsx": "preserve",
-    "types": ["webpack-env", "jest"],
+    "types": ["webpack-env", "jest", "vuetify"],
 
     /* 厳密な型チェックオプション */
     "strict": true,                           /* すべての厳密な型チェックオプションを有効にします。 */
