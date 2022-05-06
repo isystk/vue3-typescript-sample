@@ -1,9 +1,11 @@
 <template>
-  <Header />
-  <div class="contents">
-    <slot />
-  </div>
-  <Footer />
+  <v-app>
+    <Header />
+    <div class="contents">
+      <slot />
+    </div>
+    <Footer />
+  </v-app>
 </template>
 
 <script setup lang="ts">

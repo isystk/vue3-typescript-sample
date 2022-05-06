@@ -1,6 +1,8 @@
 <template>
   <Layout>
-    <div>私のトップページです</div>
+      <v-card>
+        <v-card-title>私のトップページです</v-card-title>
+      </v-card>
   </Layout>
 </template>
 

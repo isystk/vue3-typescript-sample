@@ -94,7 +94,8 @@ yarn storybook
 
 | プロジェクト| 概要|
 | :---------------------------------------| :-------------------------------|
-| [VueTailwind](https://www.vue-tailwind.com/docs/installation)| VueTailwind |
+| [Vuetify 3 Beta](https://next.vuetifyjs.com/en/getting-started/installation/)| Vuetify 3 Beta |
+| [Tailwind CSS](https://tailwindcss.com/docs/installation)| Tailwind CSS |
 
 ## 🎫 Licence
 

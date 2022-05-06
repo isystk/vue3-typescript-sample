@@ -3,6 +3,9 @@ import {createRouter, createWebHistory} from 'vue-router'
 import App from './App.vue'
 import routes from 'pages-generated'
 import './styles/app.scss'
+
+// vuetify
+import "vuetify/styles";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
