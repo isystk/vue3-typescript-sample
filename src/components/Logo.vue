@@ -1,9 +1,7 @@
 <template>
-  <div class="header-logo">
-    <h1>
-      sample
-    </h1>
-  </div>
+  <v-toolbar-title>
+    sample
+  </v-toolbar-title>
 </template>
 
 <script lang="ts"></script>
