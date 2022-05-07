@@ -5,10 +5,11 @@ import routes from 'pages-generated'
 import '@/styles/app.scss'
 import vuetify from '@/plugins/vuetify'
 import i18n from '@/plugins/i18n'
+import NotFound from '@/pages/404.vue'
 
 const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes: [...routes, { path: '/:catchAll(.*)', component: NotFound }],
 })
 
 const app = createApp(App)

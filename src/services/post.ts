@@ -1,4 +1,7 @@
 import MainService from '@/services/main'
+import { API } from '@/utilities/api'
+import { Api } from '@/constants/api'
+import * as _ from 'lodash'
 
 export type Post = {
   userId: string
@@ -14,7 +17,6 @@ export type Posts = {
 
 export default class PostService {
   main: MainService
-
   posts: Posts
 
   constructor(main: MainService) {
@@ -23,7 +25,13 @@ export default class PostService {
   }
 
   async listPosts() {
-    // TODO
+    try {
+      const response = await API.get(Api.POSTS)
+      this.posts = _.mapKeys(response, 'id')
+    } catch (error) {
+      console.log('error read posts', error)
+      alert('データ取得に失敗しました')
+    }
   }
 
   async getPost(id: string) {

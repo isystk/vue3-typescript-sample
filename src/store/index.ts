@@ -1,22 +1,25 @@
-import { reactive } from 'vue'
-export default function rootStore() {
-  const state = reactive({
-    count: 0,
+import { inject, reactive, InjectionKey, provide } from 'vue'
+import MainService from '@/services/main'
+
+const rootStore = () => {
+  const state = reactive<{ main: MainService | null }>({
+    main: new MainService(),
   })
   return {
-    get count() {
-      return state.count
-    },
-    increment() {
-      state.count += 1
-    },
-    decrement() {
-      state.count -= 1
+    get main() {
+      return state.main
     },
   }
 }
+
 type RootStore = ReturnType<typeof rootStore>
+const RootStoreKey: InjectionKey<RootStore> = Symbol('rootStore')
 
-import { InjectionKey } from 'vue'
+export const provideStore = () => {
+  provide(RootStoreKey, rootStore())
+}
 
-export const RootStoreKey: InjectionKey<RootStore> = Symbol('rootStore')
+export const injectStore = () => {
+  const rootStore = inject(RootStoreKey)
+  return rootStore?.main
+}
