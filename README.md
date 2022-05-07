@@ -19,6 +19,7 @@ Vue3 の学習用サンプルアプリケーションです。
 - Tailwind Css
 - jest
 - ESLint & Prettier
+- i18n
 - husky
 - StoryBook
 

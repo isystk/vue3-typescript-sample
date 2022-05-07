@@ -1,12 +1,10 @@
 <template>
   <Layout>
     <v-card>
-      <v-card-title>{{ $t('私のトップページです') }}</v-card-title>
+      <v-card-title>{{ $t('2番目のページです') }}</v-card-title>
       <v-card-text>
-        The navigation drawer will appear from the bottom on smaller size
-        screens.
+        {{ count }}
       </v-card-text>
-      <button type="button" @click="innrement">count is: {{ count }}</button>
     </v-card>
   </Layout>
 </template>
@@ -17,7 +15,5 @@ import { useI18n } from 'vue-i18n'
 import {ref} from "vue";
 const { t } = useI18n()
 const count = ref<number>(0)
-const innrement = () => {
-  count.value = count.value+1;
-}
+
 </script>

@@ -10,35 +10,54 @@
   </v-app-bar>
 
   <v-navigation-drawer v-model="drawer" bottom temporary>
-    <v-list :items="items" />
+    <v-list density="compact">
+      <v-list-subheader>Menu</v-list-subheader>
+      <v-list-item-group
+      >
+        <v-list-item
+            v-for="(item, i) in items"
+            :key="i"
+            :value="item"
+            active-color="primary"
+            @click="selectItem(item)"
+        >
+          <v-list-item-avatar start>
+            <v-icon :icon="item.icon"></v-icon>
+          </v-list-item-avatar>
+          <v-list-item-title v-text="item.text"></v-list-item-title>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
   </v-navigation-drawer>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { Url } from '@/constants/url'
 import Logo from '@/components/Logo.vue'
 
+const router = useRouter()
 const drawer = ref(false)
-const items = [
-  {
-    title: 'Foo',
-    value: 'foo',
-  },
-  {
-    title: 'Bar',
-    value: 'bar',
-  },
-  {
-    title: 'Fizz',
-    value: 'fizz',
-  },
-  {
-    title: 'Buzz',
-    value: 'buzz',
-  },
+
+type Item = {
+  text: string
+  icon: string
+  link: string
+}
+const items: Item[] = [
+  { text: 'ログイン', icon: 'mdi-clock', link: Url.LOGIN },
+  { text: 'マイページ', icon: 'mdi-account', link: Url.MEMBER },
+  { text: 'Conversions', icon: 'mdi-flag', link: '/second' },
 ]
 
 const toggleMenu = () => {
   drawer.value = !drawer.value
 }
+
+const selectItem = (item: Item) => {
+  router.push(item.link)
+  drawer.value = true
+}
+
 </script>

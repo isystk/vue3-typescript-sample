@@ -16,3 +16,5 @@ app.use(router)
 app.use(vuetify)
 app.use(i18n)
 app.mount('#app')
+
+console.log('Env', import.meta.env)
