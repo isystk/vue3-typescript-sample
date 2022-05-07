@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-export default function store() {
+export default function rootStore() {
   const state = reactive({
     count: 0,
   })
@@ -15,4 +15,8 @@ export default function store() {
     },
   }
 }
-export type Store = ReturnType<typeof store>
+type RootStore = ReturnType<typeof rootStore>
+
+import { InjectionKey } from 'vue'
+
+export const RootStoreKey: InjectionKey<RootStore> = Symbol('rootStore')

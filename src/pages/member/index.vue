@@ -10,10 +10,11 @@
 </template>
 
 <script setup lang="ts">
+import { inject, computed} from "vue";
 import Layout from '@/layouts/default.vue'
+import {RootStoreKey} from '@/store'
 import { useI18n } from 'vue-i18n'
-import {ref} from "vue";
 const { t } = useI18n()
-const count = ref<number>(0)
-
+const rootStore = inject(RootStoreKey);
+const count = computed(() => rootStore?.count);
 </script>
