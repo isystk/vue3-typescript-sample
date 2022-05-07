@@ -10,14 +10,17 @@
 
 Vue3 の学習用サンプルアプリケーションです。
 
-
 ### 利用している技術
 
 - Vue3
-- Typescript
-- Tailwind Css
 - Vuetify 
-- Cognito
+- Typescript
+- Sass
+- Tailwind Css
+- jest
+- ESLint & Prettier
+- husky
+- StoryBook
 
 ## 🌐 Demo
 https://dev.d28qg1769uc44q.amplifyapp.com
@@ -36,7 +39,35 @@ v16.13.1
 ## 📦 ディレクトリ構造
 
 ```
-
+.
+├── LICENSE
+├── README.md
+├── index.html
+├── jest.config.js
+├── node_modules
+├── package.json
+├── postcss.config.js
+├── public
+│     └── favicon.ico
+├── src
+│     ├── App.vue
+│     ├── __tests__
+│     ├── assets
+│     ├── components
+│     ├── env.d.ts
+│     ├── layouts
+│     ├── main.ts
+│     ├── pages
+│     ├── plugins
+│     ├── services
+│     ├── stories
+│     └── styles
+├── tailwind.config.js
+├── tsconfig.jest.json
+├── tsconfig.json
+├── tsconfig.node.json
+├── vite.config.ts
+└── yarn.lock
 ```
 
 
@@ -65,6 +96,7 @@ $ yarn storybook
 | :---------------------------------------| :-------------------------------|
 | [Vuetify 3 Beta](https://next.vuetifyjs.com/en/getting-started/installation/)| Vuetify 3 Beta |
 | [Tailwind CSS](https://tailwindcss.com/docs/installation)| Tailwind CSS |
+| [husky v6 のインストール方法と使い方。lint-staged も導入して、品質を保とう](https://fwywd.com/tech/husky-setup)| husky v6 のインストール方法と使い方。lint-staged も導入して、品質を保とう |
 
 ## 🎫 Licence
 

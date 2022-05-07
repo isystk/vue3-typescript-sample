@@ -1,5 +1,8 @@
 <template>
-  <v-toolbar-title> sample </v-toolbar-title>
+  <v-toolbar-title>{{ $t('vue3-typescript-sample') }}</v-toolbar-title>
 </template>
 
-<script lang="ts"></script>
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+</script>

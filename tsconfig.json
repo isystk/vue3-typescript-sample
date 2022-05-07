@@ -36,6 +36,7 @@
     "removeComments": true,                   /* コメントを出力しません。 */
     // "noEmit": true,                        /* コンパイル結果の.jsファイルなどを出力しなくなる。 */
     // "sourceMap": true,                     /* 対応する '.map'ファイルを生成します。 */
+    "resolveJsonModule": true,
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]
