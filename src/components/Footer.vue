@@ -13,21 +13,14 @@
     <!--      ></v-btn>-->
     <!--    </div>-->
 
-    <div class="text-white pt-0">
-      © 2020 isystk&apos;s sample
-    </div>
+    <div class="text-white pt-0">© 2020 isystk&apos;s sample</div>
   </v-footer>
 </template>
 
 <script>
 export default {
   data: () => ({
-    icons: [
-      'mdi-facebook',
-      'mdi-twitter',
-      'mdi-linkedin',
-      'mdi-instagram',
-    ],
+    icons: ['mdi-facebook', 'mdi-twitter', 'mdi-linkedin', 'mdi-instagram'],
   }),
 }
 </script>
