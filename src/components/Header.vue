@@ -15,8 +15,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import Logo from '@/components/Logo.vue'
+import { ref } from 'vue';
+import Logo from '@/components/Logo.vue';
 
 const drawer = ref(false)
 const items = [

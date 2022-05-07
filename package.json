@@ -11,8 +11,18 @@
     "format": "prettier -w src/*.{ts,vue} && prettier -w src/**/*.{ts,vue}",
     "fix": "yarn format && yarn lint",
     "test": "jest",
+    "prepare": "husky install",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,less,sass,scss}": [
+      "stylelint --fix"
+    ]
   },
   "dependencies": {
     "vue": "^3.2.25",
@@ -36,8 +46,10 @@
     "babel-loader": "^8.2.5",
     "eslint": "^8.14.0",
     "eslint-plugin-vue": "^8.7.1",
+    "husky": "^7.0.4",
     "jest": "^27.5.1",
     "jsonc-parser": "^3.0.0",
+    "lint-staged": "^12.4.1",
     "postcss": "^8.4.13",
     "prettier": "^2.6.2",
     "sass": "^1.51.0",
