@@ -5,8 +5,9 @@
     "paths": {
       "@/*": ["./src/*"],
     },
-    "target": "es5",                          /* ECMAScriptのターゲットバージョンを指定します: 'ES3'（デフォルト）, 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018'または 'ESNEXT' */
-    "module": "commonjs",                     /* モジュールコード生成: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015',または 'ESNext'を指定します。targetがes3かes5ならcommonjsとなる。 */
+    "target": "esnext",                          /* ECMAScriptのターゲットバージョンを指定します: 'ES3'（デフォルト）, 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018'または 'ESNEXT' */
+    "module": "commonjs",                          /* モジュールコード生成: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015',または 'ESNext'を指定します。targetがes3かes5ならcommonjsとなる。 */
+    "moduleResolution": "node",
     "lib": [
       "esnext",
       "dom"
@@ -37,6 +38,7 @@
     // "noEmit": true,                        /* コンパイル結果の.jsファイルなどを出力しなくなる。 */
     // "sourceMap": true,                     /* 対応する '.map'ファイルを生成します。 */
     "resolveJsonModule": true,
+
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]

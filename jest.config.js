@@ -1,25 +1,27 @@
 /**
  * Jest Configuration
  */
-const { pathsToModuleNameMapper } = require("ts-jest/utils");
-const { readFileSync } = require("fs");
-const { parse } = require("jsonc-parser");
+const { pathsToModuleNameMapper } = require('ts-jest/utils')
+const { readFileSync } = require('fs')
+const { parse } = require('jsonc-parser')
 // extendsを自動的に解決してマージできないため、compilerOptions.pathsを書いているファイルを指定する
-const { compilerOptions } = parse(readFileSync("./tsconfig.json").toString());
+const { compilerOptions } = parse(readFileSync('./tsconfig.json').toString())
 const moduleNameMapper = pathsToModuleNameMapper(compilerOptions.paths, {
-    prefix: "<rootDir>/"
-});
+  prefix: '<rootDir>/',
+})
 
 module.exports = {
-    preset: "ts-jest",
-    testEnvironment: "jsdom",
-    moduleNameMapper,
-    // moduleNameMapper: {
-    //     "^@/(.+)": "<rootDir>/resources/src/front/ts/$1"
-    // },
-    globals: {
-        "ts-jest": {
-            tsconfig: "tsconfig.jest.json"
-        }
-    }
-};
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
+  moduleNameMapper,
+  globals: {
+    'ts-jest': {
+      tsconfig: 'tsconfig.jest.json',
+    },
+  },
+  transformIgnorePatterns: ['node_modules/(?!vue-awesome|pages-generated)'],
+  transform: {
+    '^.+\\.ts$': 'ts-jest',
+    '.*\\.(vue)$': 'vue3-jest',
+  },
+}
