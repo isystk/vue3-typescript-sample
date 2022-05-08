@@ -1,15 +1,28 @@
 <template>
-  <v-app-bar color="primary" prominent>
-    <v-app-bar-nav-icon variant="text" @click.stop="toggleMenu" />
+  <v-app-bar
+    color="primary"
+    prominent
+  >
+    <v-app-bar-nav-icon
+      variant="text"
+      @click.stop="toggleMenu"
+    />
 
     <Logo />
 
     <v-spacer />
 
-    <v-btn variant="text" icon="mdi-dots-vertical" />
+    <v-btn
+      variant="text"
+      icon="mdi-dots-vertical"
+    />
   </v-app-bar>
 
-  <v-navigation-drawer v-model="drawer" bottom temporary>
+  <v-navigation-drawer
+    v-model="drawer"
+    bottom
+    temporary
+  >
     <v-list density="compact">
       <v-list-subheader>Menu</v-list-subheader>
       <v-list-item-group>
@@ -21,9 +34,9 @@
           @click="selectItem(item)"
         >
           <v-list-item-avatar start>
-            <v-icon :icon="item.icon"></v-icon>
+            <v-icon :icon="item.icon" />
           </v-list-item-avatar>
-          <v-list-item-title v-text="item.text"></v-list-item-title>
+          <v-list-item-title v-text="item.text" />
         </v-list-item>
       </v-list-item-group>
     </v-list>

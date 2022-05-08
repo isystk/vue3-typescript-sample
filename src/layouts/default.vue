@@ -2,7 +2,14 @@
   <v-app>
     <Header />
     <v-main>
-      <slot />
+      <Suspense>
+        <template #default>
+          <slot />
+        </template>
+        <template #fallback>
+          loading...
+        </template>
+      </Suspense>
     </v-main>
     <Footer />
   </v-app>

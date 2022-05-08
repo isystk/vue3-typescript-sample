@@ -1,33 +1,56 @@
 <template>
   <Layout>
-    <v-list-item
-      v-for="(post, i) in posts"
-      :key="i"
-      :value="post"
-      active-color="primary"
-    >
-      {{ post }}
-      <v-list-item-title v-text="post.title"></v-list-item-title>
-    </v-list-item>
-    <v-card>
-      <v-card-title>{{ $t('私のトップページです') }}</v-card-title>
-      <v-card-text>
-        The navigation drawer will appear from the bottom on smaller size
-        screens.
-      </v-card-text>
+    <v-card class="mx-auto">
+      <v-container fluid>
+        <v-row dense>
+          <v-col
+            v-for="({ data }, postId) in posts"
+            :key="postId"
+            cols="12"
+            md="6"
+          >
+            <v-card>
+              <router-link :to="`${Url.POSTS}/${postId}`">
+                <v-img
+                  :src="data.photo"
+                  class="white--text align-end"
+                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                  cover
+                >
+                  <v-card-title
+                    class="text-white"
+                    v-text="data.title"
+                  />
+                </v-img>
+
+                <v-card-actions>
+                  <v-spacer />
+                  <v-btn
+                    size="small"
+                    color="surface-variant"
+                    variant="text"
+                    icon="mdi-heart"
+                  />
+                </v-card-actions>
+              </router-link>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-card>
   </Layout>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onBeforeMount } from 'vue'
 import Layout from '@/layouts/default.vue'
+import { Url } from '@/constants/url'
 import { injectStore } from '@/store'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 const main = injectStore()
 
-onMounted(async () => {
+onBeforeMount(async () => {
   // 投稿一覧の取得
   await main?.post?.listPosts()
 })

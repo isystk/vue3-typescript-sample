@@ -3,16 +3,21 @@ import { API } from '@/utilities/api'
 import { Api } from '@/constants/api'
 import * as _ from 'lodash'
 
+export type Data<T> = {
+  id: string
+  data: T
+}
+
+export type Posts = {
+  [id: string]: Data<Post>
+}
+
 export type Post = {
   userId: string
   title: string
   description: string
-  regist_datetime: Date | null
+  regist_datetime?: Date
   photo: string
-}
-
-export type Posts = {
-  [id: string]: Post
 }
 
 export default class PostService {
@@ -35,7 +40,15 @@ export default class PostService {
   }
 
   async getPost(id: string) {
-    // TODO
+    console.log('getPost', id)
+    try {
+      const response = await API.get(`${Api.POSTS}/${id}`)
+      console.log('response', response)
+      this.posts = { ...this.posts, [id]: response }
+    } catch (error) {
+      console.log('error read posts', error)
+      alert('データ取得に失敗しました')
+    }
   }
 
   async createPost(post: Post) {
