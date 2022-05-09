@@ -6,21 +6,20 @@
 
     <v-spacer />
 
-      <v-list density="compact"
-              nav>
-        <v-list-item
-            two-line
-            prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg"
-            title="Jane Smith"
-            subtitle="Logged in"
-        >
-          <template v-slot:append>
-            <v-list-item-avatar end>
-              <v-btn size="small" variant="text" icon="mdi-menu-down"></v-btn>
-            </v-list-item-avatar>
-          </template>
-        </v-list-item>
-      </v-list>
+    <v-list density="compact" theme="dark" nav>
+      <v-list-item
+        two-line
+        prepend-avatar="/images/user_dummy.png"
+        title="Jane Smith"
+        subtitle="Logged in"
+      >
+        <template v-slot:append>
+          <v-list-item-avatar end>
+            <v-btn size="small" variant="text" icon="mdi-menu-down"></v-btn>
+          </v-list-item-avatar>
+        </template>
+      </v-list-item>
+    </v-list>
   </v-app-bar>
 
   <v-navigation-drawer v-model="drawer" bottom temporary>

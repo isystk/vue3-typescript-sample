@@ -1,32 +1,24 @@
 <template>
   <Layout>
-    <div v-if="loading">
-      Loading..
-    </div>
+    <div v-if="loading">Loading..</div>
     <div v-else>
-      <Box :breadcrumbs.sync="[{text: post.title}]" >
-        <v-card
-            class="mx-auto"
-        >
+      <Box :breadcrumbs="[{ text: post.title }]">
+        <v-card class="mx-auto">
+          <h1 class="text-base md:text-2xl pb-3">
+            {{ post.title }}
+          </h1>
 
-        <h1 class="text-base md:text-2xl pb-3">
-          {{post.title}}
-        </h1>
-
-        <v-img
+          <v-img
             :src="post.photo"
             class="white--text align-end mb-3"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
             cover
-        >
-        </v-img>
+          >
+          </v-img>
 
-        <p
-            class="pb-3"
-        >
-          {{post.description}}
-        </p>
-
+          <p class="pb-3">
+            {{ post.description }}
+          </p>
         </v-card>
       </Box>
     </div>
@@ -34,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import {onBeforeMount, computed, ref} from 'vue'
+import { onBeforeMount, computed, ref } from 'vue'
 import Layout from '@/layouts/default.vue'
 import Box from '@/components/Box.vue'
 import { injectStore } from '@/store'
@@ -47,7 +39,7 @@ const id = ref<string>()
 const loading = ref<boolean>(true)
 
 onBeforeMount(async () => {
-  id.value = route.params.id+'';
+  id.value = route.params.id + ''
   // 投稿詳細の取得
   await main?.post?.getPost(id.value)
   loading.value = false

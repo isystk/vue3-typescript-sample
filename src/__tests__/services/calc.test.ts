@@ -1,7 +1,7 @@
-import { plus } from "@/services/calc";
+import { plus } from '@/services/calc'
 
-describe("plus test", () => {
-  test("1 + 1", () => {
-    expect(plus(1, 1)).toEqual(2);
-  });
-});
+describe('plus test', () => {
+  test('1 + 1', () => {
+    expect(plus(1, 1)).toEqual(2)
+  })
+})
