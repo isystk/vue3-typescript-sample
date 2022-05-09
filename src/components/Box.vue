@@ -21,9 +21,9 @@ type Props = {
   breadcrumbs: Breadcrumb[]
   small: boolean
 }
-const { breadcrumbs, small } = withDefaults(defineProps<Props>(),{
+const { breadcrumbs, small } = withDefaults(defineProps<Props>(), {
   breadcrumbs: () => [],
-  small: false
+  small: false,
 })
 const items = computed(() => {
   return [

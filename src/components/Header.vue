@@ -1,28 +1,29 @@
 <template>
-  <v-app-bar
-    color="primary"
-    prominent
-  >
-    <v-app-bar-nav-icon
-      variant="text"
-      @click.stop="toggleMenu"
-    />
+  <v-app-bar color="primary" prominent>
+    <v-app-bar-nav-icon variant="text" @click.stop="toggleMenu" />
 
     <Logo />
 
     <v-spacer />
 
-    <v-btn
-      variant="text"
-      icon="mdi-dots-vertical"
-    />
+      <v-list density="compact"
+              nav>
+        <v-list-item
+            two-line
+            prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg"
+            title="Jane Smith"
+            subtitle="Logged in"
+        >
+          <template v-slot:append>
+            <v-list-item-avatar end>
+              <v-btn size="small" variant="text" icon="mdi-menu-down"></v-btn>
+            </v-list-item-avatar>
+          </template>
+        </v-list-item>
+      </v-list>
   </v-app-bar>
 
-  <v-navigation-drawer
-    v-model="drawer"
-    bottom
-    temporary
-  >
+  <v-navigation-drawer v-model="drawer" bottom temporary>
     <v-list density="compact">
       <v-list-subheader>Menu</v-list-subheader>
       <v-list-item-group>
