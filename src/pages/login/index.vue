@@ -1,23 +1,31 @@
 <template>
   <Layout>
-    <Box :breadcrumbs="[{ text: 'ログイン' }]" :small="true">
-      <v-card>
-        <v-card-title>{{ $t('2番目のページです') }}</v-card-title>
-        <v-card-text>
-          {{ posts }}
-        </v-card-text>
-      </v-card>
+    <Box :breadcrumbs="[{ text: $t('ログイン') }]" :small="true">
+      <div class="mt">
+        <label for="name-input">氏名</label>
+        <input id="name-input" v-model="form.email.$value" type="text" />
+        <p v-if="form.email.$anyInvalid">
+          {{ form.email.$message }}
+        </p>
+      </div>
     </Box>
   </Layout>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import Layout from '@/layouts/default.vue'
-import { injectStore } from '@/store'
-import { useI18n } from 'vue-i18n'
-import Box from '@/components/Box.vue'
-const { t } = useI18n()
-const main = injectStore()
-const posts = computed(() => main?.post?.posts)
+import { useValidation } from 'vue-composable'
+import { reactive } from 'vue'
+type State = {
+  email: string
+}
+
+const state = reactive<State>({
+  email: '',
+})
+
+const required = (x) => !!x // 追加
+const form = useValidation({
+  email: { $value: state.email, required, $message: '必須項目です' },
+})
 </script>

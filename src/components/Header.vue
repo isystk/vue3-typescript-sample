@@ -13,10 +13,11 @@
         title="Jane Smith"
         subtitle="Logged in"
       >
-        <template v-slot:append>
+        <template #append>
           <v-list-item-avatar end>
-            <v-btn size="small" variant="text" icon="mdi-menu-down"></v-btn>
+            <v-btn size="small" variant="text" icon="mdi-menu-down" />
           </v-list-item-avatar>
+          <v-list-item> ログアウト </v-list-item>
         </template>
       </v-list-item>
     </v-list>
@@ -58,9 +59,8 @@ type Item = {
   link: string
 }
 const items: Item[] = [
-  { text: 'ログイン', icon: 'mdi-clock', link: Url.LOGIN },
+  { text: 'ログイン', icon: 'mdi-login-variant', link: Url.LOGIN },
   { text: 'マイページ', icon: 'mdi-account', link: Url.MEMBER },
-  { text: 'Conversions', icon: 'mdi-flag', link: '/second' },
 ]
 
 const toggleMenu = () => {

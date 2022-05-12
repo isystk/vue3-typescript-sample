@@ -13,8 +13,7 @@
             class="white--text align-end mb-3"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
             cover
-          >
-          </v-img>
+          />
 
           <p class="pb-3">
             {{ post.description }}

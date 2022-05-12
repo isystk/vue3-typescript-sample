@@ -3,24 +3,29 @@
     class="bg-indigo-lighten-1 text-white text-center d-flex flex-column"
     color="primary"
   >
-    <!--    <div>-->
-    <!--      <v-btn-->
-    <!--          v-for="icon in icons"-->
-    <!--          :key="icon"-->
-    <!--          class="mx-4 text-white"-->
-    <!--          :icon="icon"-->
-    <!--          variant="text"-->
-    <!--      ></v-btn>-->
-    <!--    </div>-->
+    <div>
+      <v-btn
+        v-for="(item, index) in items"
+        :key="index"
+        class="mx-4 text-white"
+        :icon="item.icon"
+        variant="text"
+        @click="locate(item)"
+      />
+    </div>
 
     <div class="text-white pt-0">© 2020 isystk&apos;s sample</div>
   </v-footer>
 </template>
 
-<script>
-export default {
-  data: () => ({
-    icons: ['mdi-facebook', 'mdi-twitter', 'mdi-linkedin', 'mdi-instagram'],
-  }),
+<script setup lang="ts">
+const items = [
+  { icon: 'mdi-facebook', link: 'https://www.facebook.com/ise0615/' },
+  { icon: 'mdi-twitter', link: 'https://twitter.com/ise0615/' },
+  { icon: 'mdi-instagram', link: 'https://www.instagram.com/isystk/' },
+  { icon: 'mdi-github', link: 'https://github.com/isystk/' },
+]
+const locate = (item) => {
+  location.href = item.link
 }
 </script>

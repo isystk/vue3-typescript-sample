@@ -15,6 +15,7 @@ Vue3 の学習用サンプルアプリケーションです。
 - Vue3
 - Vuetify 
 - Typescript
+- AWS Cognito
 - Sass
 - Tailwind Css
 - jest
@@ -96,6 +97,7 @@ $ yarn storybook
 | プロジェクト| 概要|
 | :---------------------------------------| :-------------------------------|
 | [Vuetify 3 Beta](https://next.vuetifyjs.com/en/getting-started/installation/)| Vuetify 3 Beta |
+| [Material Design Icons](https://pictogrammers.github.io/@mdi/font/2.0.46/)| Material Design Icons |
 | [Tailwind CSS](https://tailwindcss.com/docs/installation)| Tailwind CSS |
 | [husky v6 のインストール方法と使い方。lint-staged も導入して、品質を保とう](https://fwywd.com/tech/husky-setup)| husky v6 のインストール方法と使い方。lint-staged も導入して、品質を保とう |
 

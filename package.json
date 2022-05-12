@@ -19,9 +19,6 @@
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "prettier --write"
-    ],
-    "*.{css,less,sass,scss}": [
-      "stylelint --fix"
     ]
   },
   "dependencies": {
@@ -51,7 +48,7 @@
     "babel-loader": "^8.2.5",
     "eslint": "^8.14.0",
     "eslint-plugin-vue": "^8.7.1",
-    "husky": "^7.0.4",
+    "husky": "^8.0.1",
     "jest": "^27.5.1",
     "jsonc-parser": "^3.0.0",
     "lint-staged": "^12.4.1",
@@ -65,6 +62,7 @@
     "typescript": "^4.5.4",
     "vite": "^2.9.7",
     "vite-plugin-pages": "^0.23.0",
+    "vue-composable": "^1.0.0-beta.24",
     "vue-i18n": "^9.1.10",
     "vue-loader": "^16.8.3",
     "vue-tsc": "^0.34.7",
