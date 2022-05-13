@@ -1,29 +1,42 @@
 <template>
-  <v-app-bar color="primary" prominent>
-    <v-app-bar-nav-icon variant="text" @click.stop="toggleMenu" />
-
+  <v-app-bar class="overflow-visible" color="primary" prominent>
     <Logo />
-
     <v-spacer />
-
-    <v-list density="compact" theme="dark" nav>
-      <v-list-item
-        two-line
-        prepend-avatar="/images/user_dummy.png"
-        title="Jane Smith"
-        subtitle="Logged in"
-      >
-        <template #append>
-          <v-list-item-avatar end>
-            <v-btn size="small" variant="text" icon="mdi-menu-down" />
-          </v-list-item-avatar>
-          <v-list-item> ログアウト </v-list-item>
-        </template>
-      </v-list-item>
-    </v-list>
+    <v-app-bar-nav-icon
+      variant="text"
+      class="visible md:invisible"
+      @click.stop="toggleMenu"
+    />
+    <v-card
+      class="mx-auto top-0 right-0 invisible md:visible"
+      width="300"
+      absolute
+    >
+      <v-list density="compact" theme="dark" nav>
+        <v-list-group>
+          <template v-slot:activator="{ props }">
+            <v-list-item
+              v-bind="props"
+              two-line
+              prepend-avatar="/images/user_dummy.png"
+              title="Jane Smith"
+              subtitle="Logged in"
+            ></v-list-item>
+          </template>
+          <v-list-item
+            v-for="(item, i) in items"
+            :key="i"
+            :value="item.text"
+            :title="item.text"
+            :prepend-icon="item.icon"
+            @click="selectItem(item)"
+          ></v-list-item>
+        </v-list-group>
+      </v-list>
+    </v-card>
   </v-app-bar>
 
-  <v-navigation-drawer v-model="drawer" bottom temporary>
+  <v-navigation-drawer v-model="drawer" bottom temporary position="right">
     <v-list density="compact">
       <v-list-subheader>Menu</v-list-subheader>
       <v-list-item-group>

@@ -99,6 +99,7 @@ $ yarn storybook
 | [Vuetify 3 Beta](https://next.vuetifyjs.com/en/getting-started/installation/)| Vuetify 3 Beta |
 | [Material Design Icons](https://pictogrammers.github.io/@mdi/font/2.0.46/)| Material Design Icons |
 | [Tailwind CSS](https://tailwindcss.com/docs/installation)| Tailwind CSS |
+| [vee-validate](https://vee-validate.logaretm.com/v4/guide/components)| vee-validate |
 | [husky v6 のインストール方法と使い方。lint-staged も導入して、品質を保とう](https://fwywd.com/tech/husky-setup)| husky v6 のインストール方法と使い方。lint-staged も導入して、品質を保とう |
 
 ## 🎫 Licence
