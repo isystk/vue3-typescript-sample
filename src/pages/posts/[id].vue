@@ -4,10 +4,6 @@
     <div v-else>
       <Box :breadcrumbs="[{ text: post.title }]">
         <v-card class="mx-auto">
-          <h1 class="text-base md:text-2xl pb-3">
-            {{ post.title }}
-          </h1>
-
           <v-img
             :src="post.photo"
             class="white--text align-end mb-3"

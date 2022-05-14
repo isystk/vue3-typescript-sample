@@ -7,6 +7,9 @@ const config = {
 }
 
 export const getUserPool = () => {
+  if (!config.UserPoolId || !config.ClientId) {
+    return null
+  }
   return new CognitoUserPool({
     UserPoolId: config.UserPoolId,
     ClientId: config.ClientId,

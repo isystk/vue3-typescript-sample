@@ -5,7 +5,14 @@
     </template>
   </v-breadcrumbs>
   <v-container :fluid="fluid">
-    <slot />
+    <v-card class="mx-auto">
+      <v-card-title class="mb-3">
+        {{ items[items.length-1].text }}
+      </v-card-title>
+      <v-card-text>
+        <slot />
+      </v-card-text>
+    </v-card>
   </v-container>
 </template>
 
