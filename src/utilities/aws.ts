@@ -15,3 +15,21 @@ export const getUserPool = () => {
     ClientId: config.ClientId,
   })
 }
+
+export const isAuthenticated = async (cb) => {
+  const userPool = getUserPool()
+  if (!userPool) {
+    return false
+  }
+  const cognitoUser = userPool.getCurrentUser()
+  if (cognitoUser != null) {
+    cognitoUser.getSession((err, session) => {
+      if (err) {
+        return cb(err, false)
+      }
+      return cb(session, true)
+    })
+  } else {
+    cb(null, false)
+  }
+}

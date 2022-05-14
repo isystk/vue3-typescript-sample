@@ -4,12 +4,6 @@
     <v-spacer />
 
     <template v-if="isLogined">
-      <v-app-bar-nav-icon
-        variant="text"
-        class="visible md:invisible"
-        @click.stop="toggleMenu"
-        v-if="isLogined"
-      />
       <v-card
         class="mx-auto top-0 right-0 invisible md:visible"
         width="300"
@@ -39,13 +33,29 @@
       </v-card>
     </template>
     <template v-else>
-      <router-link :to="Url.LOGIN">
-        {{ t('ログイン') }}
-      </router-link>
+        <router-link :to="Url.LOGIN"
+          class="invisible md:visible"
+        >
+          {{ t('ログイン') }}
+        </router-link>
     </template>
+
+    <v-app-bar-nav-icon
+        variant="text"
+        class="visible md:invisible"
+        @click.stop="toggleMenu"
+    />
   </v-app-bar>
 
   <v-navigation-drawer v-model="drawer" bottom temporary position="right">
+    <v-list>
+      <v-list-item
+          prepend-avatar="/images/user_dummy.png"
+          :title="username"
+          subtitle="Logged in"
+      ></v-list-item>
+    </v-list>
+    <v-divider></v-divider>
     <v-list density="compact">
       <v-list-subheader>Menu</v-list-subheader>
       <v-list-item-group>
@@ -69,7 +79,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
-import {computed, ref} from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { Url } from '@/constants/url'
 import Logo from '@/components/Logo.vue'
@@ -84,12 +94,26 @@ const toggleMenu = () => {
 }
 
 const isLogined = main?.auth.signCheck()
-const {username} = main?.auth.user || {}
+const { username } = main?.auth.user || {}
 
 const items = computed(() => {
   return [
-    isLogined ? { text: 'ログアウト', icon: 'mdi-login-variant', func: () => main?.auth.signOut() }: { text: 'ログイン', icon: 'mdi-login-variant', func: () => router.push(Url.LOGIN) },
-    { text: 'マイページ', icon: 'mdi-account', func: () => router.push(Url.MEMBER) },
+    isLogined
+      ? {
+          text: 'ログアウト',
+          icon: 'mdi-login-variant',
+          func: () => main?.auth.signOut(),
+        }
+      : {
+          text: 'ログイン',
+          icon: 'mdi-login-variant',
+          func: () => router.push(Url.LOGIN),
+        },
+    {
+      text: 'マイページ',
+      icon: 'mdi-account',
+      func: () => router.push(Url.MEMBER),
+    },
   ]
 })
 </script>

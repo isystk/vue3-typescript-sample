@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Logo 1`] = `
+<router-link
+  to="/"
+>
+  <v-toolbar-title
+    class="w-64"
+  >
+     vue3-typescript-sample 
+  </v-toolbar-title>
+</router-link>
+`;

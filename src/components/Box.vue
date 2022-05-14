@@ -7,7 +7,7 @@
   <v-container :fluid="fluid">
     <v-card class="mx-auto">
       <v-card-title class="mb-3">
-        {{ items[items.length-1].text }}
+        {{ items[items.length - 1].text }}
       </v-card-title>
       <v-card-text>
         <slot />
