@@ -60,6 +60,8 @@ import Box from '@/components/Box.vue'
 import { Form as VeeForm, Field, ErrorMessage } from 'vee-validate'
 import * as Yup from 'yup'
 import { injectStore } from '@/store'
+import { Url } from '@/constants/url'
+import router from "@/router";
 const main = injectStore()
 
 const schema = Yup.object().shape({
@@ -81,9 +83,14 @@ type FormValues = {
 }
 
 const onSubmit = async (values: FormValues) => {
-  console.log(values)
-  const { email, password} = values;
-  await main?.auth.signUp(email, password)
-
+  try {
+    console.log(values)
+    const { email, password} = values;
+    const result = await main?.auth.signUp(email, password)
+    console.log(result)
+    await router.push(Url.SIGNUP_VERIFICATION)
+  } catch (e) {
+    alert(e.message)
+  }
 }
 </script>

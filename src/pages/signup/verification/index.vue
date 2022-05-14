@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <Box :breadcrumbs="[{ text: $t('認証コードを入力して下さい') }]" :small="true">
+    <Box :breadcrumbs="[{ text: $t('メールに記載の認証コードを入力して下さい') }]" :small="true">
       <VeeForm v-slot="{ errors }" :validation-schema="schema" @submit="onSubmit" >
         <div class="mt">
           <div class="mb-4">
@@ -48,6 +48,8 @@ import Box from '@/components/Box.vue'
 import { Form as VeeForm, Field, ErrorMessage } from 'vee-validate'
 import * as Yup from 'yup'
 import { injectStore } from '@/store'
+import { Url } from '@/constants/url'
+import router from "@/router";
 const main = injectStore()
 
 const schema = Yup.object().shape({
@@ -64,9 +66,14 @@ type FormValues = {
 }
 
 const onSubmit = async (values: FormValues) => {
-  console.log(values)
-  const { email, verificationCode} = values;
-  await main?.auth.confirmRegistration(email, verificationCode)
-
+  try {
+    console.log(values)
+    const { email, verificationCode} = values;
+    const result = await main?.auth.confirmRegistration(email, verificationCode)
+    console.log(result)
+    await router.push(Url.MEMBER)
+  } catch (e) {
+    alert(e.message)
+  }
 }
 </script>

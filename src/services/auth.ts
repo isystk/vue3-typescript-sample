@@ -3,6 +3,7 @@ import {
   CognitoUser,
   CognitoUserAttribute,
   AuthenticationDetails,
+  ISignUpResult,
 } from 'amazon-cognito-identity-js'
 import { getUserPool } from '@/utilities/aws'
 
@@ -20,7 +21,7 @@ export default class AuthService {
   signOut(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       if (!this.user) {
-        resolve(false)
+        reject(new Error('既にログアウトされています'))
       } else {
         this.user.signOut(() => {
           localStorage.clear()
@@ -35,21 +36,25 @@ export default class AuthService {
 
   // ログイン
   async signIn(email: string, password: string): Promise<CognitoUser> {
-    const authenticationDetails = new AuthenticationDetails({
-      Username: email,
-      Password: password,
-    })
-    const cognitoUser = new CognitoUser({
-      Username: email,
-      Pool: getUserPool(),
-    })
-
     return new Promise((resolve, reject) => {
+      const userPool = getUserPool()
+      if (!userPool) {
+        reject(new Error('no userPool'))
+        return
+      }
+      const authenticationDetails = new AuthenticationDetails({
+        Username: email,
+        Password: password,
+      })
+      const cognitoUser = new CognitoUser({
+        Username: email,
+        Pool: userPool,
+      })
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: (result) => {
           const accessToken = result.getAccessToken().getJwtToken()
           console.log('AccessToken: ' + accessToken)
-          this.user = getUserPool().getCurrentUser()
+          this.user = userPool.getCurrentUser()
           // window.location.reload()
           if (this.user) {
             resolve(this.user)
@@ -57,8 +62,7 @@ export default class AuthService {
         },
         onFailure: (err) => {
           console.error(err)
-          alert('ログインに失敗しました')
-          reject()
+          reject(new Error('ログインに失敗しました'))
         },
         // newPasswordRequired: function (userAttributes, requiredAttributes) {
         //   // コンソールからユーザを登録した場合、初回認証時に強制的にパスワードを変える必要がある。
@@ -70,36 +74,39 @@ export default class AuthService {
   }
 
   // 会員仮登録
-  async signUp(email: string, password: string): Promise<boolean> {
-    try {
+  async signUp(email: string, password: string): Promise<ISignUpResult> {
+    return new Promise((resolve, reject) => {
+      const userPool = getUserPool()
+      if (!userPool) {
+        reject(new Error('no userPool'))
+        return
+      }
       const attributeList = [
         new CognitoUserAttribute({
           Name: 'email',
           Value: email,
         }),
       ]
-      return await getUserPool().signUp(
-        email,
-        password,
-        attributeList,
-        [],
-        (err, result) => {
-          if (err) {
-            console.error(err)
-            return false
+      userPool.signUp(email, password, attributeList, [], (err, result) => {
+        if (err) {
+          console.log('error signup in', err)
+          if (err.message.match(/User already exists/)) {
+            reject(
+              new Error(
+                '既に会員登録されています。認証済みでない場合はメールを確認してください。'
+              )
+            )
           }
-          return true
+          reject(err)
+          return
         }
-      )
-    } catch (error) {
-      console.log('error signup in', error)
-      if ((error as string).match(/UsernameExistsException/)) {
-        alert(
-          '既に会員登録されています。認証済みでない場合はメールを確認してください。'
-        )
-      }
-      return false
-    }
+        if (!result) {
+          reject(new Error('no SignUpResult'))
+          return
+        }
+        resolve(result)
+      })
+    })
   }
 
   // 会員登録認証
@@ -107,32 +114,26 @@ export default class AuthService {
     email: string,
     verificationCode: string
   ): Promise<boolean> {
-    try {
+    return new Promise((resolve, reject) => {
+      const userPool = getUserPool()
+      if (!userPool) {
+        reject(new Error('no userPool'))
+        return
+      }
       const cognitoUser = new CognitoUser({
         Username: email,
-        Pool: getUserPool(),
+        Pool: userPool,
       })
-      return await cognitoUser.confirmRegistration(
-        verificationCode,
-        true,
-        (err: any) => {
-          if (err) {
-            console.log(err)
-            return false
-          }
-          console.log('verification succeeded')
-          return true
+      cognitoUser.confirmRegistration(verificationCode, true, (err: any) => {
+        if (err) {
+          console.log(err)
+          reject(err)
+          return
         }
-      )
-    } catch (error) {
-      console.log('error verification in', error)
-      if ((error as string).match(/UsernameExistsException/)) {
-        alert(
-          '既に会員登録されています。認証済みでない場合はメールを確認してください。'
-        )
-      }
-      return false
-    }
+        console.log('verification succeeded')
+        resolve(true)
+      })
+    })
   }
 
   // 認証チェック

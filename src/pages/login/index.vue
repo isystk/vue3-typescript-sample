@@ -71,12 +71,15 @@ type FormValues = {
 
 const onSubmit = async (values: FormValues) => {
   console.log(values)
-  const { email, password} = values;
-  const user = await main?.auth.signIn(email, password)
-  console.log(user)
-  if (user) {
-    await router.push(Url.MEMBER)
+  try {
+    const { email, password} = values;
+    const user = await main?.auth.signIn(email, password)
+    console.log(user)
+    if (user) {
+      await router.push(Url.MEMBER)
+    }
+  } catch (e) {
+    alert(e.message);
   }
-
 }
 </script>

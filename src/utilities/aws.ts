@@ -16,20 +16,26 @@ export const getUserPool = () => {
   })
 }
 
-export const isAuthenticated = async (cb) => {
-  const userPool = getUserPool()
-  if (!userPool) {
-    return false
-  }
-  const cognitoUser = userPool.getCurrentUser()
-  if (cognitoUser != null) {
-    cognitoUser.getSession((err, session) => {
-      if (err) {
-        return cb(err, false)
-      }
-      return cb(session, true)
-    })
-  } else {
-    cb(null, false)
-  }
+export const isAuthenticated = (): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    const userPool = getUserPool()
+    if (!userPool) {
+      resolve(false)
+      return
+    }
+    const cognitoUser = userPool.getCurrentUser()
+    if (cognitoUser != null) {
+      cognitoUser.getSession((err, session) => {
+        if (err) {
+          console.error(err)
+          reject(err)
+          return
+        }
+        console.log(session)
+        resolve(true)
+      })
+    } else {
+      resolve(false)
+    }
+  })
 }

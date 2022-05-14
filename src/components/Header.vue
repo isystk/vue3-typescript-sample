@@ -100,12 +100,12 @@ const items = computed(() => {
       ? {
           text: 'ログアウト',
           icon: 'mdi-login-variant',
-          func:async () => {
+          func: async () => {
             const result = await main?.auth.signOut()
-            if(result) {
+            if (result) {
               await router.push(Url.LOGIN)
             }
-          }
+          },
         }
       : {
           text: 'ログイン',
