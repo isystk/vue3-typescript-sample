@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <Box :breadcrumbs="[{ text: $t('ログイン') }]" :small="true">
+    <Box :breadcrumbs="[{ text: $t('認証コードを入力して下さい') }]" :small="true">
       <VeeForm v-slot="{ errors }" :validation-schema="schema" @submit="onSubmit" >
         <div class="mt">
           <div class="mb-4">
@@ -17,15 +17,15 @@
           </div>
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">
-              パスワード
+              認証コード
             </label>
             <Field
-                name="password"
-                type="password"
+                name="verificationCode"
+                type="verificationCode"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                :class="{ 'is-invalid': errors.password }"
+                :class="{ 'is-invalid': errors.verificationCode }"
             />
-            <ErrorMessage class="text-red" name="password" />
+            <ErrorMessage class="text-red" name="verificationCode" />
           </div>
           <div class="mb-4">
             <v-btn
@@ -33,14 +33,11 @@
                 color="primary"
                 type="submit"
             >
-              ログイン
+              送信する
             </v-btn>
           </div>
         </div>
       </VeeForm>
-      <router-link :to="Url.SIGNUP" >
-        {{ t('会員登録はこちら') }}
-      </router-link>
     </Box>
   </Layout>
 </template>
@@ -52,31 +49,24 @@ import { Form as VeeForm, Field, ErrorMessage } from 'vee-validate'
 import * as Yup from 'yup'
 import { injectStore } from '@/store'
 const main = injectStore()
-import { useI18n } from 'vue-i18n'
-const { t } = useI18n()
-import { Url } from '@/constants/url'
-import router from "@/router";
 
 const schema = Yup.object().shape({
   email: Yup.string()
     .required('メールアドレスを入力してください')
     .email('メールアドレスを正しく入力してください'),
-  password: Yup.string().required('パスワードを入力してください'),
+  verificationCode: Yup.string()
+    .required('認証コードを入力してください'),
 })
 
 type FormValues = {
   email: string
-  password: string
+  verificationCode: string
 }
 
 const onSubmit = async (values: FormValues) => {
   console.log(values)
-  const { email, password} = values;
-  const user = await main?.auth.signIn(email, password)
-  console.log(user)
-  if (user) {
-    await router.push(Url.MEMBER)
-  }
+  const { email, verificationCode} = values;
+  await main?.auth.confirmRegistration(email, verificationCode)
 
 }
 </script>

@@ -6,12 +6,14 @@ import NotFound from '@/pages/404.vue'
 import Top from '@/pages/index.vue'
 import Post from '@/pages/posts/[id].vue'
 import Login from '@/pages/login/index.vue'
+import SignUp from '@/pages/signup/index.vue'
 import Member from '@/pages/member/index.vue'
 
 const routes = [
   { path: Url.TOP, name: 'Top', component: Top },
   { path: `${Url.POSTS}/:id`, name: 'Post', component: Post },
   { path: Url.LOGIN, name: 'Login', component: Login },
+  { path: Url.SIGNUP, name: 'SignUp', component: SignUp },
   {
     path: Url.MEMBER,
     name: 'Member',

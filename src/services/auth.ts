@@ -1,7 +1,6 @@
 import MainService from '@/services/main'
 import {
   CognitoUser,
-  CognitoUserPool,
   CognitoUserAttribute,
   AuthenticationDetails,
 } from 'amazon-cognito-identity-js'
@@ -9,30 +8,33 @@ import { getUserPool } from '@/utilities/aws'
 
 export default class AuthService {
   main: MainService
-  userPool: CognitoUserPool
   user: CognitoUser | null
 
   constructor(main: MainService) {
     this.main = main
-    this.userPool = getUserPool()
-    this.user = getUserPool().getCurrentUser()
+    const userPool = getUserPool()
+    this.user = userPool ? userPool.getCurrentUser() : null
   }
 
   // ログアウト
-  signOut() {
-    if (this.user) {
-      this.user.signOut()
-      localStorage.clear()
-      console.log('signed out')
-      this.user = null
-      window.location.reload()
-    } else {
-      console.log('no user signing in')
-    }
+  signOut(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      if (!this.user) {
+        resolve(false)
+      } else {
+        this.user.signOut(() => {
+          localStorage.clear()
+          console.log('signed out')
+          this.user = null
+          // window.location.reload()
+          resolve(true)
+        })
+      }
+    })
   }
 
   // ログイン
-  async signIn(email: string, password: string) {
+  async signIn(email: string, password: string): Promise<CognitoUser> {
     const authenticationDetails = new AuthenticationDetails({
       Username: email,
       Password: password,
@@ -42,22 +44,28 @@ export default class AuthService {
       Pool: getUserPool(),
     })
 
-    await cognitoUser.authenticateUser(authenticationDetails, {
-      onSuccess: (result) => {
-        const accessToken = result.getAccessToken().getJwtToken()
-        console.log('AccessToken: ' + accessToken)
-        this.user = getUserPool().getCurrentUser()
-        window.location.reload()
-      },
-      onFailure: (err) => {
-        console.error(err)
-        alert('ログインに失敗しました')
-      },
-      // newPasswordRequired: function (userAttributes, requiredAttributes) {
-      //   // コンソールからユーザを登録した場合、初回認証時に強制的にパスワードを変える必要がある。
-      //   // https://qiita.com/k_hoso/items/afe9aa8183b8bf0651a1
-      //   cognitoUser.completeNewPasswordChallenge('Test@1234', {}, this)
-      // },
+    return new Promise((resolve, reject) => {
+      cognitoUser.authenticateUser(authenticationDetails, {
+        onSuccess: (result) => {
+          const accessToken = result.getAccessToken().getJwtToken()
+          console.log('AccessToken: ' + accessToken)
+          this.user = getUserPool().getCurrentUser()
+          // window.location.reload()
+          if (this.user) {
+            resolve(this.user)
+          }
+        },
+        onFailure: (err) => {
+          console.error(err)
+          alert('ログインに失敗しました')
+          reject()
+        },
+        // newPasswordRequired: function (userAttributes, requiredAttributes) {
+        //   // コンソールからユーザを登録した場合、初回認証時に強制的にパスワードを変える必要がある。
+        //   // https://qiita.com/k_hoso/items/afe9aa8183b8bf0651a1
+        //   cognitoUser.completeNewPasswordChallenge('Test@1234', {}, this)
+        // },
+      })
     })
   }
 

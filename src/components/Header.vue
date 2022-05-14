@@ -33,26 +33,24 @@
       </v-card>
     </template>
     <template v-else>
-        <router-link :to="Url.LOGIN"
-          class="invisible md:visible"
-        >
-          {{ t('ログイン') }}
-        </router-link>
+      <router-link :to="Url.LOGIN" class="invisible md:visible">
+        {{ t('ログイン') }}
+      </router-link>
     </template>
 
     <v-app-bar-nav-icon
-        variant="text"
-        class="visible md:invisible"
-        @click.stop="toggleMenu"
+      variant="text"
+      class="visible md:invisible"
+      @click.stop="toggleMenu"
     />
   </v-app-bar>
 
   <v-navigation-drawer v-model="drawer" bottom temporary position="right">
     <v-list>
       <v-list-item
-          prepend-avatar="/images/user_dummy.png"
-          :title="username"
-          subtitle="Logged in"
+        prepend-avatar="/images/user_dummy.png"
+        :title="username"
+        subtitle="Logged in"
       ></v-list-item>
     </v-list>
     <v-divider></v-divider>
@@ -102,7 +100,12 @@ const items = computed(() => {
       ? {
           text: 'ログアウト',
           icon: 'mdi-login-variant',
-          func: () => main?.auth.signOut(),
+          func:async () => {
+            const result = await main?.auth.signOut()
+            if(result) {
+              await router.push(Url.LOGIN)
+            }
+          }
         }
       : {
           text: 'ログイン',
