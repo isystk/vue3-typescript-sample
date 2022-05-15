@@ -1,11 +1,13 @@
-// import '../src/styles/app.scss'
+import { app } from '@storybook/vue3'
+import vuetify from '@/plugins/vuetify'
+import i18n from '@/plugins/i18n'
 
-export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
-  controls: {
-    matchers: {
-      color: /(background|color)$/i,
-      date: /Date$/,
-    },
-  },
-}
+app.use(vuetify)
+app.use(i18n)
+
+export const decorators = [
+  (story) => ({
+    components: { story },
+    template: '<v-app><story /></v-app>',
+  }),
+]

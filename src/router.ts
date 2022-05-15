@@ -9,7 +9,6 @@ import Login from '@/pages/login/index.vue'
 import SignUp from '@/pages/signup/index.vue'
 import Verification from '@/pages/signup/verification/index.vue'
 import Member from '@/pages/member/index.vue'
-import { el } from 'vuetify/lib/locale'
 
 const routes = [
   { path: Url.TOP, name: 'Top', component: Top },
