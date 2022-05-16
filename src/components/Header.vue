@@ -103,19 +103,19 @@ const items = computed(() => {
           func: async () => {
             const result = await main?.auth.signOut()
             if (result) {
-              // await router.push(Url.LOGIN)
+              await router.push(Url.LOGIN)
             }
           },
         }
       : {
           text: 'ログイン',
           icon: 'mdi-login-variant',
-          // func: () => router.push(Url.LOGIN),
+          func: () => router.push(Url.LOGIN),
         },
     {
       text: 'マイページ',
       icon: 'mdi-account',
-      // func: () => router.push(Url.MEMBER),
+      func: () => router.push(Url.MEMBER),
     },
   ]
 })

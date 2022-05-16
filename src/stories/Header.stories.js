@@ -1,24 +1,16 @@
+import { storiesOf } from '@storybook/vue3'
 import vueRouter from 'storybook-vue3-router'
 import Header from '@/components/Header.vue'
-import { provideStore } from '@/store/index'
-import { injectStore } from '@/store'
+// import { provideStore } from '@/store/index'
 
-export default {
-  title: 'Common/Header',
-  component: Header,
-}
-
-const Template = (args) => ({
-  components: { Header },
-  setup: () => {
-    return { ...args }
-  },
-  template: '<Header />',
-})
-Template.decorators = [vueRouter(), provideStore()]
-
-export const LoggedIn = Template.bind({})
-LoggedIn.args = {}
-
-export const LoggedOut = Template.bind({})
-LoggedOut.args = {}
+storiesOf('Common/Header', module)
+  // .addDecorator(provideStore())
+  .addDecorator(vueRouter())
+  .add('LoggedIn', () => ({
+    components: { Header },
+    template: `<Header />`,
+  }))
+  .add('LoggedOut', () => ({
+    components: { Header },
+    template: `<Header />`,
+  }))

@@ -11,13 +11,6 @@ module.exports = {
   async viteFinal(config, { configType }) {
     config.resolve.alias['~storybook'] = path.resolve(__dirname)
     config.resolve.alias['@'] = path.resolve(__dirname, '..', 'src')
-
-    config.css = {
-      preprocessorOptions: {
-        scss: { additionalData: `@import "src/styles/app.scss";` },
-      },
-    }
-
     config.plugins = [...config.plugins, vuetify()]
 
     return config
