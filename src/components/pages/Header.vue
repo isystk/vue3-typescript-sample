@@ -80,7 +80,7 @@ const { t } = useI18n()
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { Url } from '@/constants/url'
-import Logo from '@/components/Logo.vue'
+import Logo from '@/components/pages/Logo.vue'
 import { injectStore } from '@/store'
 const main = injectStore()
 

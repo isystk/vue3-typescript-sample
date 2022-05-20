@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import { onBeforeMount, computed, ref } from 'vue'
 import Layout from '@/layouts/default.vue'
-import Box from '@/components/Box.vue'
+import Box from '@/components/pages/Box.vue'
 import { injectStore } from '@/store'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
@@ -36,7 +36,7 @@ const loading = ref<boolean>(true)
 onBeforeMount(async () => {
   id.value = route.params.id + ''
   // 投稿詳細の取得
-  await main?.post?.getPost(id.value)
+  await main?.post?.readPost(id.value)
   loading.value = false
 })
 

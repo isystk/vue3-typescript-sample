@@ -50,7 +50,7 @@ const main = injectStore()
 
 onBeforeMount(async () => {
   // 投稿一覧の取得
-  await main?.post?.listPosts()
+  await main?.post?.readPosts()
 })
 
 const posts = computed(() => main?.post?.posts)

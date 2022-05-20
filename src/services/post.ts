@@ -29,7 +29,7 @@ export default class PostService {
     this.posts = {}
   }
 
-  async listPosts() {
+  async readPosts() {
     try {
       const response = await API.get(Api.POSTS)
       this.posts = _.mapKeys(response, 'id')
@@ -39,11 +39,10 @@ export default class PostService {
     }
   }
 
-  async getPost(id: string) {
+  async readPost(id: string) {
     console.log('getPost', id)
     try {
       const response = await API.get(`${Api.POSTS}/${id}`)
-      console.log('response', response)
       this.posts = { ...this.posts, [id]: response }
     } catch (error) {
       console.log('error read posts', error)
@@ -51,9 +50,20 @@ export default class PostService {
     }
   }
 
+  async getMyPosts() {
+    try {
+      return _.filter(this.posts, (post) => {
+        return post.userId !== this.main.auth.user.userDataKey
+      })
+    } catch (error) {
+      console.log('error read my posts', error)
+      alert('データ取得に失敗しました')
+    }
+  }
+
   async createPost(post: Post) {
     try {
-      await this.listPosts()
+      await this.readPosts()
     } catch (error) {
       console.log('error create post', error)
       alert('登録に失敗しました')
@@ -62,7 +72,7 @@ export default class PostService {
 
   async updatePost(post: Post) {
     try {
-      await this.listPosts()
+      await this.readPosts()
     } catch (error) {
       console.log('error update post', error)
       alert('更新に失敗しました')
@@ -71,7 +81,7 @@ export default class PostService {
 
   async deletePost(postId: string) {
     try {
-      await this.listPosts()
+      await this.readPosts()
     } catch (error) {
       console.log('error delete post', error)
       alert('削除に失敗しました')
