@@ -1,8 +1,8 @@
 import { storiesOf } from '@storybook/vue3'
 import vueRouter from 'storybook-vue3-router'
-import Logo from '@/components/Logo.vue'
+import Logo from '@/components/pages/Logo.vue'
 
-storiesOf('Common/Logo', module)
+storiesOf('pages/Logo', module)
   .addDecorator(vueRouter())
   .add('Basic', () => ({
     components: { Logo },

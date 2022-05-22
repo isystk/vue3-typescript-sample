@@ -50,15 +50,10 @@ export default class PostService {
     }
   }
 
-  async getMyPosts() {
-    try {
-      return _.filter(this.posts, (post) => {
-        return post.userId !== this.main.auth.user.userDataKey
-      })
-    } catch (error) {
-      console.log('error read my posts', error)
-      alert('データ取得に失敗しました')
-    }
+  getMyPosts() {
+    return _.filter(this.posts, (post) => {
+      return post.data.userId === this.main.auth.user.userDataKey
+    })
   }
 
   async createPost(values: Post) {

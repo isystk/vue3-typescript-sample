@@ -30,7 +30,7 @@
             <td>
               <ul>
                 <li class="ma-1">
-                  <v-btn depressed color="info" type="button" @click="editPost"
+                  <v-btn depressed color="info" type="button" @click="editPost(id, data)"
                     >変更</v-btn
                   >
                 </li>
@@ -56,7 +56,7 @@
         ></v-pagination>
       </div>
     </Box>
-    <PostRegistModal :is-open="isOpen" :handle-close="handleClose" />
+    <PostRegistModal :is-open="isOpen" :handle-close="handleClose" :post-id="store.postId" :initialValues="store.initialValues" />
   </Layout>
 </template>
 
@@ -77,6 +77,7 @@ const page = ref(1)
 const length = ref(0)
 const pageSize = 3
 const isOpen = ref(false)
+const store = reactive<{initialValues: {}, postId: string | null}>({initialValues: {}, postId: null})
 
 onBeforeMount(async () => {
   await loadList()
@@ -84,13 +85,16 @@ onBeforeMount(async () => {
 
 const loadList = async () => {
   await main?.post?.readPosts()
-  length.value = Math.ceil(_.size(main?.post.posts) / pageSize)
-  const entries = Object.entries(main?.post.posts).map(([key, value]) => value)
+  const myPosts = main?.post.getMyPosts();
+  console.log(myPosts)
+  length.value = Math.ceil(_.size(myPosts) / pageSize)
+  const entries = Object.entries(myPosts).map(([key, value]) => value)
   lists.displayLists = _.slice(entries, 0, pageSize)
 }
 
 const pageChange = (pageNumber) => {
-  const entries = Object.entries(main?.post.posts).map(([key, value]) => value)
+  const myPosts = main?.post.getMyPosts();
+  const entries = Object.entries(myPosts).map(([key, value]) => value)
   lists.displayLists = _.slice(
     entries,
     pageSize * (pageNumber - 1),
@@ -106,16 +110,20 @@ const deletePost = async (postId: string) => {
   await loadList()
 }
 
-const editPost = () => {
-  console.log('edit')
-}
-
-const registPost = () => {
-  console.log('regist')
+const editPost = (postId: string, post: Post) => {
+  store.postId = postId
+  store.initialValues = {...post}
   isOpen.value = true
 }
 
-const handleClose = () => {
+const registPost = () => {
+  store.postId = null
+  store.initialValues = {}
+  isOpen.value = true
+}
+
+const handleClose = async () => {
   isOpen.value = false
+  await loadList()
 }
 </script>

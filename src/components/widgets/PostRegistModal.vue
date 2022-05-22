@@ -49,7 +49,7 @@
                 >
                   <VueImageBase64
                       :maxFileSize="10485760"
-                      :thumbnailSize="100"
+                      :thumbnailSize="700"
                       :drop="true"
                       dropText="ファイルをドラッグ＆ドロップもしくは"
                       capture="environment"
@@ -62,7 +62,7 @@
                     md="6"
                 >
                   <v-img
-                      :src="values.photo"
+                      :src="values.photo || '/images/no_image.png'"
                       style="width: 100%;"
                       :transition="false"
                       cover
@@ -92,6 +92,8 @@ const main = injectStore()
 const props = defineProps<{
   isOpen: boolean
   handleClose: () => void
+  postId?: string | null
+  initialValues?: Post | {}
 }>()
 
 const schema = Yup.object().shape({
@@ -102,12 +104,6 @@ const schema = Yup.object().shape({
   photo: Yup.string()
       .required('写真を入力してください'),
 })
-
-const initialValues = {
-  title: '',
-  description: '',
-  photo: '/images/no_image.png'
-}
 
 type FormValues = {
   title: string
@@ -121,7 +117,11 @@ const onSubmit = async (values: FormValues) => {
     const post = {
       ...values
     } as Post
-    await main?.post.createPost(post)
+    if (props.postId) {
+      await main?.post.updatePost(props.postId, post)
+    } else {
+      await main?.post.createPost(post)
+    }
     props.handleClose();
   } catch (e) {
     alert(e.message)
