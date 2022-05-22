@@ -1,62 +1,93 @@
 <template>
   <Modal title="投稿フォーム" :isOpen="isOpen" :handleClose="handleClose">
-    <VeeForm
-        v-slot="{ errors }"
+    <Form
+        v-slot="{ errors, values, setFieldValue}"
         :validation-schema="schema"
+        :initial-values="initialValues"
         @submit="onSubmit"
       >
         <div class="mt">
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">
-              メールアドレス
+              タイトル
             </label>
             <Field
-              name="email"
+              name="title"
               type="text"
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              :class="{ 'is-invalid': errors.email }"
+              :class="{ 'is-invalid': errors.title }"
             />
-            <ErrorMessage class="text-red" name="email" />
+            <ErrorMessage class="text-red" name="title" />
           </div>
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">
-              パスワード
+              本文
             </label>
             <Field
-              name="password"
-              type="password"
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              :class="{ 'is-invalid': errors.password }"
+                name="description"
+                as="textarea"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                :class="{ 'is-invalid': errors.description }"
             />
-            <ErrorMessage class="text-red" name="password" />
+            <ErrorMessage class="text-red" name="description" />
           </div>
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">
-              パスワード (確認)
+              写真
             </label>
             <Field
-              name="confirmPassword"
-              type="password"
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              :class="{ 'is-invalid': errors.confirmPassword }"
+                name="photo"
+                type="hidden"
+                :class="{ 'is-invalid': errors.photo }"
             />
-            <ErrorMessage class="text-red" name="confirmPassword" />
+            <v-container fluid>
+              <v-row dense>
+                <v-col
+                    cols="12"
+                    md="6"
+                    class="width: 300px"
+                >
+                  <VueImageBase64
+                      :maxFileSize="10485760"
+                      :thumbnailSize="100"
+                      :drop="true"
+                      dropText="ファイルをドラッグ＆ドロップもしくは"
+                      capture="environment"
+                      :multiple="true"
+                      @handleChange="(data) => setFieldValue('photo', data.fileData)"
+                  />
+                </v-col>
+                <v-col
+                    cols="12"
+                    md="6"
+                >
+                  <v-img
+                      :src="values.photo"
+                      style="width: 100%;"
+                      :transition="false"
+                      cover
+                  />
+                </v-col>
+              </v-row>
+            </v-container>
+            <ErrorMessage class="text-red" name="photo" />
           </div>
           <div class="mb-4">
             <v-btn depressed color="primary" type="submit"> 登録 </v-btn>
           </div>
         </div>
-      </VeeForm>
+      </Form>
   </Modal>
 </template>
 
 <script setup lang="ts">
 import Modal from '@/components/widgets/Modal.vue'
-import { Form as VeeForm, Field, ErrorMessage } from 'vee-validate'
+import { Form, Field, ErrorMessage } from 'vee-validate'
+// import VueImageBase64 from 'vuejs-image-base64'
+import VueImageBase64 from '@/components/elements/VueImageBase64.vue'
 import * as Yup from 'yup'
 import { injectStore } from '@/store'
-import { Url } from '@/constants/url'
-import router from '@/router'
+import { Post } from '@/services/post'
 const main = injectStore()
 const props = defineProps<{
   isOpen: boolean
@@ -64,32 +95,37 @@ const props = defineProps<{
 }>()
 
 const schema = Yup.object().shape({
-  email: Yup.string()
-      .required('メールアドレスを入力してください')
-      .email('メールアドレスを正しく入力してください'),
-  password: Yup.string()
-      .min(6, 'パスワードは6文字以上で入力して下さい')
-      .required('パスワードを入力してください'),
-  confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), null], 'パスワードが一致しません')
-      .required('パスワード(確認)を入力してください'),
+  title: Yup.string()
+      .required('タイトルを入力してください'),
+  description: Yup.string()
+      .required('本文を入力してください'),
+  photo: Yup.string()
+      .required('写真を入力してください'),
 })
 
+const initialValues = {
+  title: '',
+  description: '',
+  photo: '/images/no_image.png'
+}
+
 type FormValues = {
-  email: string
-  password: string
-  confirmPassword: string
+  title: string
+  description: string
+  photo: string
 }
 
 const onSubmit = async (values: FormValues) => {
   try {
     console.log(values)
-    const { email, password } = values
-    const result = await main?.auth.signUp(email, password)
-    console.log(result)
-    await router.push(Url.SIGNUP_VERIFICATION)
+    const post = {
+      ...values
+    } as Post
+    await main?.post.createPost(post)
+    props.handleClose();
   } catch (e) {
     alert(e.message)
   }
 }
+
 </script>

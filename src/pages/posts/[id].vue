@@ -6,9 +6,6 @@
         <v-card class="mx-auto">
           <v-img
             :src="post.photo"
-            class="white--text align-end mb-3"
-            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-            cover
           />
 
           <p class="pb-3">

@@ -61,18 +61,24 @@ export default class PostService {
     }
   }
 
-  async createPost(post: Post) {
+  async createPost(values: Post) {
     try {
-      await this.readPosts()
+      if (!this.main.auth.user.userDataKey) {
+        throw new Error('ユーザ情報が無効です', this.main.auth.user)
+      }
+      await API.post(Api.POSTS, {
+        ...values,
+        userId: this.main.auth.user.userDataKey,
+      })
     } catch (error) {
       console.log('error create post', error)
       alert('登録に失敗しました')
     }
   }
 
-  async updatePost(post: Post) {
+  async updatePost(postId: string, values: Post) {
     try {
-      await this.readPosts()
+      await API.put(`${Api.POSTS}/${postId}`, values)
     } catch (error) {
       console.log('error update post', error)
       alert('更新に失敗しました')
@@ -81,7 +87,7 @@ export default class PostService {
 
   async deletePost(postId: string) {
     try {
-      await this.readPosts()
+      await API.del(`${Api.POSTS}/${postId}`)
     } catch (error) {
       console.log('error delete post', error)
       alert('削除に失敗しました')

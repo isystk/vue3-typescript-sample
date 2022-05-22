@@ -16,13 +16,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="({ data }, postId) in lists.displayLists" :key="postId">
+          <tr v-for="({ id, data }, idx) in lists.displayLists" :key="postId">
             <td>{{ data.title }}</td>
             <td>{{ data.description }}</td>
             <td>
               <v-img
                 :src="data.photo"
-                class="white--text align-end object-cover"
                 style="width: 6vw; height: 8vh"
                 :transition="false"
                 cover
@@ -40,7 +39,7 @@
                     depressed
                     color="error"
                     type="button"
-                    @click="deletePost"
+                    @click="deletePost(id)"
                     >削除</v-btn
                   >
                 </li>
@@ -80,11 +79,15 @@ const pageSize = 3
 const isOpen = ref(false)
 
 onBeforeMount(async () => {
+  await loadList()
+})
+
+const loadList = async () => {
   await main?.post?.readPosts()
   length.value = Math.ceil(_.size(main?.post.posts) / pageSize)
   const entries = Object.entries(main?.post.posts).map(([key, value]) => value)
   lists.displayLists = _.slice(entries, 0, pageSize)
-})
+}
 
 const pageChange = (pageNumber) => {
   const entries = Object.entries(main?.post.posts).map(([key, value]) => value)
@@ -95,10 +98,12 @@ const pageChange = (pageNumber) => {
   )
 }
 
-const deletePost = () => {
+const deletePost = async (postId: string) => {
   if (!confirm('削除します。よろしいですか？')) {
     return
   }
+  await main?.post.deletePost(postId)
+  await loadList()
 }
 
 const editPost = () => {

@@ -13,9 +13,7 @@
               <router-link :to="`${Url.POSTS}/${postId}`">
                 <v-img
                   :src="data.photo"
-                  class="white--text align-end object-cover"
                   style="width: 92vw; height: 50vh"
-                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
                   cover
                 >
                   <v-card-title class="text-white" v-text="data.title" />
