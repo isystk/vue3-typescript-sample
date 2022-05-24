@@ -32,7 +32,7 @@ export default class PostService {
   async readPosts() {
     try {
       const response = await API.get(Api.POSTS)
-      this.posts = _.mapKeys(response, 'id')
+      this.posts = _.mapKeys(response, 'id') as Posts
     } catch (error) {
       console.log('error read posts', error)
       alert('データ取得に失敗しました')
@@ -40,7 +40,6 @@ export default class PostService {
   }
 
   async readPost(id: string) {
-    console.log('getPost', id)
     try {
       const response = await API.get(`${Api.POSTS}/${id}`)
       this.posts = { ...this.posts, [id]: response }
@@ -51,6 +50,8 @@ export default class PostService {
   }
 
   getMyPosts() {
+    // const response = await API.get(`${Api.POSTS}?userId=${this.main.auth.userId}`)
+    // return _.mapKeys(response, 'id') as Posts
     return _.filter(this.posts, (post) => {
       return post.data.userId === this.main.auth.userId
     })

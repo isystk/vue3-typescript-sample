@@ -99,9 +99,8 @@ onBeforeMount(async () => {
 })
 
 const loadList = async () => {
-  await main?.post?.readPosts()
+  await main?.post.readPosts()
   const myPosts = main?.post.getMyPosts()
-  console.log(myPosts)
   length.value = Math.ceil(_.size(myPosts) / pageSize)
   const entries = Object.entries(myPosts).map(([key, value]) => value)
   lists.displayLists = _.slice(entries, 0, pageSize)

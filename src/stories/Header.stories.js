@@ -1,8 +1,7 @@
 import { storiesOf } from '@storybook/vue3'
 import vueRouter from 'storybook-vue3-router'
 import Header from '@/components/pages/Header.vue'
-import MainService from '../services/main'
-import { CognitoUser, CognitoUserPool } from 'amazon-cognito-identity-js'
+import MainService from '@/services/main'
 
 storiesOf('pages/Header', module)
   .addDecorator(vueRouter())

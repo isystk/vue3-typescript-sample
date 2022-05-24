@@ -1,8 +1,8 @@
 import axios from 'axios'
 import * as _ from 'lodash'
 
-const get = async (url: string): Promise<any> => {
-  return await request('get', url)
+const get = async (url: string, values?): Promise<any> => {
+  return await request('get', url, values)
 }
 
 const post = async (url: string, values?: any, config?: any): Promise<any> => {
@@ -23,7 +23,7 @@ const request = async (
   values?: any,
   config?: any
 ): Promise<any> => {
-  // console.log('Request:%s', url)
+  console.log('Request:%s', url)
   const response = await axios[method](
     url,
     // jsonToForm(values, new FormData()),
@@ -34,7 +34,7 @@ const request = async (
       throw new Error(error)
     }
   })
-  // console.log('Response:%s', response.data.body)
+  console.log('Response:%s', response.data.body)
   return response?.data?.body
 }
 
