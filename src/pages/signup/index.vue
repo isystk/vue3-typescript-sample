@@ -1,5 +1,5 @@
 <template>
-  <Layout :store="main">
+  <Layout :store="main" title="会員登録">
     <Box :breadcrumbs="[{ text: $t('会員登録') }]" :small="true">
       <VeeForm
         v-slot="{ errors }"

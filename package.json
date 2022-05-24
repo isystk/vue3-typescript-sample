@@ -1,5 +1,6 @@
 {
-  "name": "vite-vue",
+  "name": "vue3-typescript-sample",
+  "description": "Vue3 の学習用サンプルアプリケーションです。",
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -13,7 +14,9 @@
     "test": "jest",
     "prepare": "husky install",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "deploy:production": "now -t $VERCEL_TOKEN -c --prod",
+    "deploy:preview": "now -t $VERCEL_TOKEN -c"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -42,6 +45,7 @@
     "@vue/eslint-config-typescript": "^10.0.0",
     "@vue/test-utils": "^2.0.0-rc.21",
     "@vuetify/vite-plugin": "^1.0.0-alpha.10",
+    "@vueuse/head": "^0.7.6",
     "amazon-cognito-identity-js": "^5.2.8",
     "autoprefixer": "^10.4.7",
     "aws-sdk": "^2.1130.0",

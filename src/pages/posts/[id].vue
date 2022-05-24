@@ -1,5 +1,5 @@
 <template>
-  <Layout :store="main">
+  <Layout :store="main" :title="post.title">
     <div v-if="loading">Loading..</div>
     <div v-else>
       <Box :breadcrumbs="[{ text: post.title }]">
@@ -22,7 +22,7 @@ import Box from '@/components/pages/Box.vue'
 import { injectStore } from '@/store'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import {Post} from "@/services/post";
+import { Post } from '@/services/post'
 const { t } = useI18n()
 const main = injectStore()
 const route = useRoute()

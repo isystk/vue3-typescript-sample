@@ -1,5 +1,5 @@
 <template>
-  <Layout :store="main">
+  <Layout :store="main" title="TOP">
     <v-card class="mx-auto">
       <v-container fluid>
         <v-row dense>

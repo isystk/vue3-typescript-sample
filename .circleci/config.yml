@@ -71,8 +71,8 @@ jobs:
       - checkout
       - restore_npm
       - run:
-          name: Generate
-          command: yarn generate
+          name: Build
+          command: yarn build
       - run:
           name: Check dist
           command: ls -la dist

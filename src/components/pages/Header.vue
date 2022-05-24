@@ -49,7 +49,7 @@
     <v-list>
       <v-list-item
         prepend-avatar="/images/user_dummy.png"
-        :title="username"
+        :title="userName"
         subtitle="Logged in"
       ></v-list-item>
     </v-list>
