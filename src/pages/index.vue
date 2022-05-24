@@ -16,7 +16,9 @@
                   style="width: 92vw; height: 50vh"
                   cover
                 >
-                  <v-card-title class="text-white" v-text="data.title" />
+                  <v-card-title class="text-white">{{
+                    data.title
+                  }}</v-card-title>
                 </v-img>
 
                 <v-card-actions>
