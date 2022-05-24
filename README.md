@@ -1,6 +1,8 @@
 🌙 vue3-typescript-sample
 ====
 
+
+[![CircleCI](https://circleci.com/gh/isystk/vue3-typescript-sample/tree/master.svg?style=svg)](https://circleci.com/gh/isystk/vue3-typescript-sample/tree/master)
 ![GitHub issues](https://img.shields.io/github/issues/isystk/vue3-typescript-sample)
 ![GitHub forks](https://img.shields.io/github/forks/isystk/vue3-typescript-sample)
 ![GitHub stars](https://img.shields.io/github/stars/isystk/vue3-typescript-sample)

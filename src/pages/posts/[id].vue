@@ -22,6 +22,7 @@ import Box from '@/components/pages/Box.vue'
 import { injectStore } from '@/store'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import {Post} from "@/services/post";
 const { t } = useI18n()
 const main = injectStore()
 const route = useRoute()
@@ -31,11 +32,11 @@ const loading = ref<boolean>(true)
 onBeforeMount(async () => {
   id.value = route.params.id + ''
   // 投稿詳細の取得
-  await main?.post?.readPost(id.value)
+  await main?.post?.readPost(id.value + '')
   loading.value = false
 })
 
-const post = computed(() => {
+const post = computed<Post>(() => {
   if (!id.value) {
     return {
       userId: '',
