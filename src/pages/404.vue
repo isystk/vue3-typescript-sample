@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <Layout :store="main">
     <v-card>
       <v-card-title>{{ $t('404 Not Found') }}</v-card-title>
       <v-card-text>
@@ -13,4 +13,6 @@
 import Layout from '@/layouts/default.vue'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
+import { injectStore } from '@/store'
+const main = injectStore()
 </script>

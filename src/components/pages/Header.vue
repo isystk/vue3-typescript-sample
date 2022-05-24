@@ -16,7 +16,7 @@
                 v-bind="props"
                 two-line
                 prepend-avatar="/images/user_dummy.png"
-                :title="username"
+                :title="userName"
                 subtitle="Logged in"
               ></v-list-item>
             </template>
@@ -81,8 +81,10 @@ import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { Url } from '@/constants/url'
 import Logo from '@/components/pages/Logo.vue'
-import { injectStore } from '@/store'
-const main = injectStore()
+import MainService from '@/services/main'
+const props = defineProps<{
+  store: MainService
+}>()
 
 const router = useRouter()
 const drawer = ref(false)
@@ -91,8 +93,8 @@ const toggleMenu = () => {
   drawer.value = !drawer.value
 }
 
-const isLogined = main?.auth.signCheck()
-const { username } = main?.auth.user || {}
+const isLogined = props.store?.auth.signCheck()
+const { userName } = props.store?.auth || {}
 
 const items = computed(() => {
   return [
@@ -101,7 +103,7 @@ const items = computed(() => {
           text: 'ログアウト',
           icon: 'mdi-login-variant',
           func: async () => {
-            const result = await main?.auth.signOut()
+            const result = await props.store?.auth.signOut()
             if (result) {
               await router.push(Url.LOGIN)
             }

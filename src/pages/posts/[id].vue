@@ -1,12 +1,10 @@
 <template>
-  <Layout>
+  <Layout :store="main">
     <div v-if="loading">Loading..</div>
     <div v-else>
       <Box :breadcrumbs="[{ text: post.title }]">
         <v-card class="mx-auto">
-          <v-img
-            :src="post.photo"
-          />
+          <v-img :src="post.photo" />
 
           <p class="pb-3">
             {{ post.description }}

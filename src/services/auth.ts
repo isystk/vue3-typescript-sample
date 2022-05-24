@@ -10,11 +10,17 @@ import { getUserPool } from '@/utilities/aws'
 export default class AuthService {
   main: MainService
   user: CognitoUser | null
+  userName: string
+  userId: string
 
   constructor(main: MainService) {
     this.main = main
     const userPool = getUserPool()
     this.user = userPool ? userPool.getCurrentUser() : null
+    this.userName = userPool
+      ? userPool.getCurrentUser()?.getUsername() + ''
+      : ''
+    this.userId = userPool ? userPool.getCurrentUser()?.userDataKey + '' : ''
   }
 
   // ログアウト
@@ -55,6 +61,12 @@ export default class AuthService {
           const accessToken = result.getAccessToken().getJwtToken()
           console.log('AccessToken: ' + accessToken)
           this.user = userPool.getCurrentUser()
+          this.userName = userPool
+            ? userPool.getCurrentUser()?.getUsername() + ''
+            : ''
+          this.userId = userPool
+            ? userPool.getCurrentUser()?.userDataKey + ''
+            : ''
           // window.location.reload()
           if (this.user) {
             resolve(this.user)

@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <Layout :store="main">
     <Box :breadcrumbs="[{ text: $t('マイページ') }]">
       <div class="mx-auto right-5 absolute">
         <v-btn color="info" type="button" @click="registPost">新規登録</v-btn>
@@ -16,7 +16,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="({ id, data }, idx) in lists.displayLists" :key="postId">
+          <tr v-for="({ id, data }, idx) in lists.displayLists" :key="idx">
             <td>{{ data.title }}</td>
             <td>{{ data.description }}</td>
             <td>
@@ -30,7 +30,11 @@
             <td>
               <ul>
                 <li class="ma-1">
-                  <v-btn depressed color="info" type="button" @click="editPost(id, data)"
+                  <v-btn
+                    depressed
+                    color="info"
+                    type="button"
+                    @click="editPost(id, data)"
                     >変更</v-btn
                   >
                 </li>
@@ -56,7 +60,12 @@
         ></v-pagination>
       </div>
     </Box>
-    <PostRegistModal :is-open="isOpen" :handle-close="handleClose" :post-id="store.postId" :initialValues="store.initialValues" />
+    <PostRegistModal
+      :is-open="isOpen"
+      :handle-close="handleClose"
+      :post-id="store.postId"
+      :initialValues="store.initialValues"
+    />
   </Layout>
 </template>
 
@@ -64,7 +73,9 @@
 import { onBeforeMount, reactive, ref } from 'vue'
 import Layout from '@/layouts/default.vue'
 import Box from '@/components/pages/Box.vue'
-import PostRegistModal from '@/components/widgets/PostRegistModal.vue'
+import PostRegistModal, {
+  FormValues,
+} from '@/components/widgets/PostRegistModal.vue'
 import { injectStore } from '@/store'
 import { useI18n } from 'vue-i18n'
 import { Post } from '@/services/post'
@@ -77,7 +88,11 @@ const page = ref(1)
 const length = ref(0)
 const pageSize = 3
 const isOpen = ref(false)
-const store = reactive<{initialValues: {}, postId: string | null}>({initialValues: {}, postId: null})
+
+const store = reactive<{ initialValues: FormValues; postId: string | null }>({
+  initialValues: {},
+  postId: null,
+})
 
 onBeforeMount(async () => {
   await loadList()
@@ -85,7 +100,7 @@ onBeforeMount(async () => {
 
 const loadList = async () => {
   await main?.post?.readPosts()
-  const myPosts = main?.post.getMyPosts();
+  const myPosts = main?.post.getMyPosts()
   console.log(myPosts)
   length.value = Math.ceil(_.size(myPosts) / pageSize)
   const entries = Object.entries(myPosts).map(([key, value]) => value)
@@ -93,7 +108,7 @@ const loadList = async () => {
 }
 
 const pageChange = (pageNumber) => {
-  const myPosts = main?.post.getMyPosts();
+  const myPosts = main?.post.getMyPosts()
   const entries = Object.entries(myPosts).map(([key, value]) => value)
   lists.displayLists = _.slice(
     entries,
@@ -112,7 +127,7 @@ const deletePost = async (postId: string) => {
 
 const editPost = (postId: string, post: Post) => {
   store.postId = postId
-  store.initialValues = {...post}
+  store.initialValues = { ...post } as FormValues
   isOpen.value = true
 }
 

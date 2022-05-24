@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <Layout :store="main">
     <Box
       :breadcrumbs="[{ text: $t('メールに記載の認証コードを入力して下さい') }]"
       :small="true"

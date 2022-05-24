@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <Layout :store="main">
     <v-card class="mx-auto">
       <v-container fluid>
         <v-row dense>
@@ -41,9 +41,9 @@
 import { computed, onBeforeMount } from 'vue'
 import Layout from '@/layouts/default.vue'
 import { Url } from '@/constants/url'
-import { injectStore } from '@/store'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
+import { injectStore } from '@/store'
 const main = injectStore()
 
 onBeforeMount(async () => {

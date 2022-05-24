@@ -19,6 +19,10 @@
 </template>
 
 <script setup lang="ts">
+import MainService from '@/services/main'
+const props = defineProps<{
+  store: MainService
+}>()
 const items = [
   { icon: 'mdi-facebook', link: 'https://www.facebook.com/ise0615/' },
   { icon: 'mdi-twitter', link: 'https://twitter.com/ise0615/' },

@@ -52,18 +52,18 @@ export default class PostService {
 
   getMyPosts() {
     return _.filter(this.posts, (post) => {
-      return post.data.userId === this.main.auth.user.userDataKey
+      return post.data.userId === this.main.auth.userId
     })
   }
 
   async createPost(values: Post) {
     try {
-      if (!this.main.auth.user.userDataKey) {
-        throw new Error('ユーザ情報が無効です', this.main.auth.user)
+      if (!this.main.auth.userId) {
+        throw new Error('ユーザ情報が無効です')
       }
       await API.post(Api.POSTS, {
         ...values,
-        userId: this.main.auth.user.userDataKey,
+        userId: this.main.auth.userId,
       })
     } catch (error) {
       console.log('error create post', error)

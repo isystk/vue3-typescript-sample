@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <Layout :store="main">
     <Box :breadcrumbs="[{ text: $t('ログイン') }]" :small="true">
       <VeeForm
         v-slot="{ errors }"

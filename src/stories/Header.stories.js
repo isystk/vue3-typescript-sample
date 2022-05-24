@@ -1,16 +1,27 @@
 import { storiesOf } from '@storybook/vue3'
 import vueRouter from 'storybook-vue3-router'
 import Header from '@/components/pages/Header.vue'
-// import { provideStore } from '@/store/index'
+import MainService from '../services/main'
+import { CognitoUser, CognitoUserPool } from 'amazon-cognito-identity-js'
 
 storiesOf('pages/Header', module)
-  // .addDecorator(provideStore())
   .addDecorator(vueRouter())
   .add('LoggedIn', () => ({
     components: { Header },
-    template: `<Header />`,
+    setup: () => {
+      const main = new MainService()
+      main.auth.user = {}
+      main.auth.userName = 'sample'
+      main.auth.userId = '1234'
+      return { main }
+    },
+    template: `<Header :store="main" />`,
   }))
   .add('LoggedOut', () => ({
     components: { Header },
-    template: `<Header />`,
+    setup: () => {
+      const main = new MainService()
+      return { main }
+    },
+    template: `<Header :store="main" />`,
   }))
