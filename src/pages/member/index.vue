@@ -1,5 +1,5 @@
 <template>
-  <Layout :store="main" title="マイページ" >
+  <Layout :store="main" title="マイページ">
     <Box :breadcrumbs="[{ text: $t('マイページ') }]">
       <div class="mx-auto right-5 absolute">
         <v-btn color="info" type="button" @click="registPost">新規登録</v-btn>

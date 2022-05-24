@@ -18,7 +18,7 @@ import { useHead } from '@vueuse/head'
 import Header from '@/components/pages/Header.vue'
 import Footer from '@/components/pages/Footer.vue'
 import MainService from '@/services/main'
-import {computed} from "vue";
+import { computed } from 'vue'
 const props = defineProps<{
   store: MainService | undefined
   title: string
@@ -26,11 +26,11 @@ const props = defineProps<{
 }>()
 import { name, description } from '../../package.json'
 useHead({
-  title: computed(() => `${props.title||''} | ${name}`),
+  title: computed(() => `${props.title || ''} | ${name}`),
   meta: [
     {
       name: `description`,
-      content: computed(() => `${props.description||''}${description}`),
+      content: computed(() => `${props.description || ''}${description}`),
     },
   ],
 })
