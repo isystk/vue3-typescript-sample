@@ -27,17 +27,21 @@ Vue3 の学習用サンプルアプリケーションです。
 - StoryBook
 
 ## 🌐 Demo
-https://dev.d28qg1769uc44q.amplifyapp.com
+https://vue3-typescript-sample.vercel.app
 
 ![TOP画面](./app1.png "TOP画面")
 ![マイページ一覧](./app2.png "マイページ一覧")
 ![投稿フォーム](./app3.png "投稿フォーム")
 
-
-## 🔧  Node.js のバージョン
+## 🔧  環境構築
 ```shell
+# Node.js のバージョンを確認
 $ node -v
 v16.13.1
+# yarnのインストール
+$ npm install -g yarn
+# モジュールのインストール
+$ yarn
 ```
 
 ## 📦 ディレクトリ構造
@@ -46,39 +50,41 @@ v16.13.1
 .
 ├── LICENSE
 ├── README.md
+├── dist
 ├── index.html
 ├── jest.config.js
-├── node_modules
-├── package.json
-├── postcss.config.js
-├── public
-│     └── favicon.ico
 ├── src
-│     ├── App.vue
-│     ├── __tests__
-│     ├── assets
-│     ├── components
-│     ├── env.d.ts
-│     ├── layouts
-│     ├── main.ts
-│     ├── pages
-│     ├── plugins
-│     ├── services
-│     ├── stories
-│     └── styles
+│    ├── @types
+│    ├── App.vue
+│    ├── __tests__
+│    ├── assets
+│    ├── components
+│    ├── constants
+│    ├── env.d.ts
+│    ├── layouts
+│    ├── locales
+│    ├── main.ts
+│    ├── pages
+│    ├── plugins
+│    ├── router.ts
+│    ├── services
+│    ├── store
+│    ├── stories
+│    ├── styles
+│    └── utilities
 ├── tailwind.config.js
 ├── tsconfig.jest.json
 ├── tsconfig.json
 ├── tsconfig.node.json
 ├── vite.config.ts
 └── yarn.lock
+
 ```
 
 
 ## 🖊️ 起動方法
 
 ```shell
-$ yarn
 $ yarn dev
 ```
 
