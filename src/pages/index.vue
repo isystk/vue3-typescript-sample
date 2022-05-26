@@ -1,8 +1,5 @@
 <template>
-  <Layout
-    :store="main"
-    title="TOP"
-  >
+  <Layout :store="main" title="TOP">
     <v-card class="mx-auto">
       <v-container fluid>
         <v-row dense>
@@ -20,9 +17,7 @@
                   cover
                 >
                   <v-card-title class="text-white">
-                    {{
-                      data.title
-                    }}
+                    {{ data.title }}
                   </v-card-title>
                 </v-img>
 

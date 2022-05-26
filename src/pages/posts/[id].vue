@@ -1,11 +1,6 @@
 <template>
-  <Layout
-    :store="main"
-    :title="post.title"
-  >
-    <div v-if="loading">
-      Loading..
-    </div>
+  <Layout :store="main" :title="post.title">
+    <div v-if="loading">Loading..</div>
     <div v-else>
       <pages-box :breadcrumbs="[{ text: post.title }]">
         <v-card class="mx-auto">

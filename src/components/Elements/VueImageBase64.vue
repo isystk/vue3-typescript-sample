@@ -15,7 +15,7 @@
         :capture="capture"
         :multiple="multiple"
         @change="handleFileChange"
-      >
+      />
     </div>
   </div>
   <div v-else>
@@ -26,7 +26,7 @@
       :capture="capture"
       :multiple="multiple"
       @change="handleFileChange"
-    >
+    />
   </div>
 </template>
 

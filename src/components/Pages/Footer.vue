@@ -14,9 +14,7 @@
       />
     </div>
 
-    <div class="text-white pt-0">
-      © 2020 isystk&apos;s sample
-    </div>
+    <div class="text-white pt-0">© 2020 isystk&apos;s sample</div>
   </v-footer>
 </template>
 
