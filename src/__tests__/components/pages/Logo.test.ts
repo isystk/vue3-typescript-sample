@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 // import { router } from '@/router'
-import Logo from '@/components/pages/Logo.vue'
+import Logo from '@/components/Pages/Logo.vue'
 
 test('Logo', () => {
   const wrapper = mount(Logo, {

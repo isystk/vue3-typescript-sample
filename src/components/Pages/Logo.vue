@@ -1,6 +1,8 @@
 <template>
   <router-link :to="Url.TOP">
-    <v-toolbar-title class="w-64"> vue3-typescript-sample </v-toolbar-title>
+    <v-toolbar-title class="w-64">
+      vue3-typescript-sample
+    </v-toolbar-title>
   </router-link>
 </template>
 

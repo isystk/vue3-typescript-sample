@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/vue3'
 import vueRouter from 'storybook-vue3-router'
-import Header from '@/components/pages/Header.vue'
+import Header from '@/components/Pages/Header.vue'
 import MainService from '@/services/main'
 
 storiesOf('pages/Header', module)

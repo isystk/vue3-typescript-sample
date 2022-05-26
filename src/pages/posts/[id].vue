@@ -1,8 +1,13 @@
 <template>
-  <Layout :store="main" :title="post.title">
-    <div v-if="loading">Loading..</div>
+  <Layout
+    :store="main"
+    :title="post.title"
+  >
+    <div v-if="loading">
+      Loading..
+    </div>
     <div v-else>
-      <Box :breadcrumbs="[{ text: post.title }]">
+      <pages-box :breadcrumbs="[{ text: post.title }]">
         <v-card class="mx-auto">
           <v-img :src="post.photo" />
 
@@ -10,7 +15,7 @@
             {{ post.description }}
           </p>
         </v-card>
-      </Box>
+      </pages-box>
     </div>
   </Layout>
 </template>
@@ -18,7 +23,6 @@
 <script setup lang="ts">
 import { onBeforeMount, computed, ref } from 'vue'
 import Layout from '@/layouts/default.vue'
-import Box from '@/components/pages/Box.vue'
 import { injectStore } from '@/store'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'

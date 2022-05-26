@@ -5,6 +5,16 @@ app.use(vuetify)
 app.use(i18n)
 import '@/styles/app.scss'
 
+// Components
+const pageContext = import.meta.globEager('../src/components/**/*.vue')
+Object.keys(pageContext).forEach((key) => {
+  const paths = key
+    .split('/')
+    .filter((path) => path !== '..' && path !== 'src' && path !== 'components')
+  const name = paths.pop().split('.')[0]
+  return app.component([...paths, name].join(''), pageContext[key].default)
+})
+
 export const decorators = [
   (story) => ({
     components: { story },

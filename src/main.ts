@@ -7,6 +7,17 @@ import router from '@/router'
 import { createHead } from '@vueuse/head'
 
 const app = createApp(App)
+
+// Components
+const pageContext = import.meta.globEager('./components/**/*.vue')
+Object.keys(pageContext).forEach((key) => {
+  const paths = key
+    .split('/')
+    .filter((path) => path !== '.' && path !== 'components')
+  const name = paths.pop().split('.')[0]
+  return app.component([...paths, name].join(''), pageContext[key].default)
+})
+
 app.use(router)
 app.use(vuetify)
 app.use(i18n)

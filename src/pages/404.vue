@@ -1,5 +1,8 @@
 <template>
-  <Layout :store="main" title="404 Not Found">
+  <Layout
+    :store="main"
+    title="404 Not Found"
+  >
     <v-card>
       <v-card-title>{{ $t('404 Not Found') }}</v-card-title>
       <v-card-text>

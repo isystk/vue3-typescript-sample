@@ -1,22 +1,40 @@
 <template>
-  <Layout :store="main" title="マイページ">
-    <Box :breadcrumbs="[{ text: $t('マイページ') }]">
+  <Layout
+    :store="main"
+    title="マイページ"
+  >
+    <pages-box :breadcrumbs="[{ text: $t('マイページ') }]">
       <div class="mx-auto right-5 absolute">
-        <v-btn color="info" type="button" @click="registPost">新規登録</v-btn>
+        <v-btn
+          color="info"
+          type="button"
+          @click="registPost"
+        >
+          新規登録
+        </v-btn>
       </div>
       <v-table>
         <thead>
           <tr>
-            <th class="text-left">タイトル</th>
-            <th class="text-left">本文</th>
-            <th class="text-left">画像</th>
             <th class="text-left">
-              <br />
+              タイトル
+            </th>
+            <th class="text-left">
+              本文
+            </th>
+            <th class="text-left">
+              画像
+            </th>
+            <th class="text-left">
+              <br>
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="({ id, data }, idx) in lists.displayLists" :key="idx">
+          <tr
+            v-for="({ id, data }, idx) in lists.displayLists"
+            :key="idx"
+          >
             <td>{{ data.title }}</td>
             <td>{{ data.description }}</td>
             <td>
@@ -35,8 +53,9 @@
                     color="info"
                     type="button"
                     @click="editPost(id, data)"
-                    >変更</v-btn
                   >
+                    変更
+                  </v-btn>
                 </li>
                 <li class="ma-1">
                   <v-btn
@@ -44,8 +63,9 @@
                     color="error"
                     type="button"
                     @click="deletePost(id)"
-                    >削除</v-btn
                   >
+                    削除
+                  </v-btn>
                 </li>
               </ul>
             </td>
@@ -57,14 +77,14 @@
           v-model="page"
           :length="length"
           @update:modelValue="pageChange"
-        ></v-pagination>
+        />
       </div>
-    </Box>
+    </pages-box>
     <PostRegistModal
       :is-open="isOpen"
       :handle-close="handleClose"
       :post-id="store.postId"
-      :initialValues="store.initialValues"
+      :initial-values="store.initialValues"
     />
   </Layout>
 </template>
@@ -72,10 +92,9 @@
 <script setup lang="ts">
 import { onBeforeMount, reactive, ref } from 'vue'
 import Layout from '@/layouts/default.vue'
-import Box from '@/components/pages/Box.vue'
 import PostRegistModal, {
   FormValues,
-} from '@/components/widgets/PostRegistModal.vue'
+} from '@/components/Widgets/PostRegistModal.vue'
 import { injectStore } from '@/store'
 import { useI18n } from 'vue-i18n'
 import { Post } from '@/services/post'

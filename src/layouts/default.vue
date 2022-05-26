@@ -1,22 +1,22 @@
 <template>
   <v-app>
-    <Header :store="store" />
+    <pages-header :store="store" />
     <v-main>
       <Suspense>
         <template #default>
           <slot />
         </template>
-        <template #fallback> loading... </template>
+        <template #fallback>
+          loading...
+        </template>
       </Suspense>
     </v-main>
-    <Footer :store="store" />
+    <pages-footer :store="store" />
   </v-app>
 </template>
 
 <script setup lang="ts">
 import { useHead } from '@vueuse/head'
-import Header from '@/components/pages/Header.vue'
-import Footer from '@/components/pages/Footer.vue'
 import MainService from '@/services/main'
 import { computed } from 'vue'
 const props = defineProps<{

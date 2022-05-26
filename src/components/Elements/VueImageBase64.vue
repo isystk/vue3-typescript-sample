@@ -9,34 +9,29 @@
     >
       <p>{{ dropText }}</p>
       <input
-        type="file"
         :id="id"
+        type="file"
         :accept="accept"
         :capture="capture"
         :multiple="multiple"
         @change="handleFileChange"
-      />
+      >
     </div>
   </div>
   <div v-else>
     <input
-      type="file"
       :id="id"
+      type="file"
       :accept="accept"
       :capture="capture"
       :multiple="multiple"
       @change="handleFileChange"
-    />
+    >
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      isHover: false,
-    }
-  },
   props: {
     maxFileSize: {
       type: Number,
@@ -78,6 +73,11 @@ export default {
       require: false,
       default: undefined,
     },
+  },
+  data() {
+    return {
+      isHover: false,
+    }
   },
   methods: {
     // ファイル選択時のハンドラー
