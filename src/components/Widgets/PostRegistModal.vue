@@ -78,8 +78,7 @@
 <script setup lang="ts">
 import Modal from '@/components/Widgets/Modal.vue'
 import { Form, Field, ErrorMessage } from 'vee-validate'
-// import VueImageBase64 from 'vuejs-image-base64'
-import VueImageBase64 from '@/components/Elements/VueImageBase64.vue'
+import VueImageBase64 from 'vuejs-image-base64'
 import * as Yup from 'yup'
 import { injectStore } from '@/store'
 import { Post } from '@/services/post'
@@ -90,6 +89,7 @@ const props = defineProps<{
   postId?: string | null
   initialValues?: FormValues
 }>()
+
 
 const schema = Yup.object().shape({
   title: Yup.string().required('タイトルを入力してください'),
