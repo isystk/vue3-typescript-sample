@@ -54,7 +54,6 @@ $ yarn
 ├── index.html
 ├── jest.config.js
 ├── src
-│    ├── @types
 │    ├── App.vue
 │    ├── __tests__
 │    ├── assets
